@@ -32,7 +32,8 @@ require 'pp'
 #
 # Configuration options
 #########################################################
-AbiServer = '10.60.13.5'
+#AbiServer = '192.168.1.156'
+AbiServer = '10.60.13.4'
 AbiUser = 'admin'
 AbiPass = 'xabiquo'
 IdDatacenter = 1
@@ -46,11 +47,19 @@ $log.level = Logger::DEBUG
 # Creates the conection to Abiquo api
 abq = Abiquo.new(AbiServer,AbiUser,AbiPass)
 
+vm = Abiquo::VirtualMachine.get_vm_by_name("ABQ_b9c10151-e5e7-48e3-9a66-76cccbaafa81")
+$log.info "VM retrived: "
+$log.info "#{vm.inspect}"
+
+dct = abq.create_datacenter("prueba", "prueba", "prueba", :all => '10.60.10.10:80')
+$log.info "Received DC id: #{dct}"
+dctest = Abiquo::Datacenter.new(abq.get_dc_by_id(dct))
+racktest = dctest.create_standard_rack("racktest", "racktest", false, 400, 500, "402, 415, 450-460")
+
 vdcs = abq.list_virtualdatacenters
 vdc = Abiquo::VirtualDatacenter.new(abq.get_vdc_by_id(vdcs[0]))
 vapps = vdc.list_vappliances
 vapp = Abiquo::VirtualAppliance.new(vdc.get_vapp_by_id(vapps[0]))
-
 vms = vapp.list_virtualmachines
 vm = vapp.get_vm_by_id(vms[0])
 vmxml = XmlSimple.xml_out(vm, 'RootName' => 'virtualmachine')

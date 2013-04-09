@@ -35,7 +35,36 @@ class Abiquo::Datacenter < Abiquo
 			end
 		}
 
-	return nil
+		return nil
 	end
 
+	def create_standard_rack(name, desc, ha, vlanmin, vlanmax, vlanavoid)
+		url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters/#{@id}/racks"
+		content = "application/vnd.abiquo.rack+xml;"
+		builder = Builder::XmlMarkup.new
+		entity = builder.rack do |rack|
+			rack.name(name)
+			rack.shortDescription(desc)
+			rack.haEnabled(ha)
+			rack.nsrq(10)
+			rack.vlanIdMax(vlanmax)
+			rack.vlanIdMin(vlanmin)
+		end
+		
+		$log.debug "#{entity}"
+
+		begin 
+			response = RestClient.post url, entity, :content_type => content
+
+			if response.code == 201 # Resource created ok
+				xml = XmlSimple.xml_in(response)
+				$log.debug xml
+				$log.info "Rack created OK with id #{xml['id']}"
+				return xml['id']
+			end
+		rescue RestClient::Conflict
+			$log.info "Requested rack already exists."
+			return nil
+		end
+	end
 end

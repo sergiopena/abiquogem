@@ -9,6 +9,10 @@
 #
 # Main class
 #
+
+require 'builder'
+require 'rest_client'
+
 class Abiquo
 
 	#
@@ -20,7 +24,118 @@ class Abiquo
 		@@password = password
 	end
 
+	def create_datacenter(name, uuid, location, rs={})
+		url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters"
+		builder = Builder::XmlMarkup.new
+		$log.debug "rs length = #{rs.length}"
+		if rs.length == 1 
+			$log.debug "RS: #{rs[:all]}"
+			ip, port = rs[:all].split(':')
+			entity = builder.datacenter do |dc|
+				dc.uuid(uuid)
+				dc.name(name)
+				dc.location(location)
+				dc.remoteServices {
+					dc.totalSize(7)
+					dc.remoteService {
+						dc.type("VIRTUAL_FACTORY")
+						dc.uri("http://#{ip}:#{port}/virtualfactory")
+						dc.status(0)
+					}
+					dc.remoteService {
+						dc.type("VIRTUAL_SYSTEM_MONITOR")
+						dc.uri("http://#{ip}:#{port}/vsm")
+						dc.status(0)
+					}
+					dc.remoteService {
+						dc.type("APPLIANCE_MANAGER")
+						dc.uri("http://#{ip}:#{port}/am")
+						dc.status(0)
+					}
+					dc.remoteService {
+						dc.type("NODE_COLLECTOR")
+						dc.uri("http://#{ip}:#{port}/nodecollector")
+						dc.status(0)
+					}
+					dc.remoteService {
+						dc.type("STORAGE_SYSTEM_MONITOR")
+						dc.uri("http://#{ip}:#{port}/ssm")
+						dc.status(0)
+					}
+					dc.remoteService {
+						dc.type("BPM_SERVICE")
+						dc.uri("http://#{ip}:#{port}/bpm-async")
+						dc.status(0)
+					}
+					dc.remoteService {
+						dc.type("DHCP_SERVICE")
+						dc.uri("http://#{ip}:7911")
+						dc.status(0)
+					}
+				}
+			end
+		elsif rs.length == 7
+			entity = builder.datacenter do |dc|
+				dc.uuid(uuid)
+				dc.name(name)
+				dc.location(location)
+				dc.remoteServices { 
+					dc.totalSize(7)
+					dc.remoteService { 
+						dc.type("VIRTUAL_FACTORY")
+						dc.uri("http://#{rs[:vf]}/virtualfactory")
+						dc.status(0)
+					}
+					dc.remoteService { 
+						dc.type("VIRTUAL_FACTORY")
+						dc.uri("http://#{rs[:vsm]}/vsm")
+						dc.status(0)
+					}
+					dc.remoteService { 
+						dc.type("VIRTUAL_FACTORY")
+						dc.uri("http://#{rs[:am]}/am")
+						dc.status(0)
+					}
+					dc.remoteService { 
+						dc.type("VIRTUAL_FACTORY")
+						dc.uri("http://#{rs[:nc]}/nodecollector")
+						dc.status(0)
+					}
+					dc.remoteService { 
+						dc.type("VIRTUAL_FACTORY")
+						dc.uri("http://#{rs[:ssm]}/ssm")
+						dc.status(0)
+					}
+					dc.remoteService { 
+						dc.type("BPM-ASYNC")
+						dc.uri("http://#{rs[:bpm]}/bpm-async")
+						dc.status(0)
+					}
+					dc.remoteService { 
+						dc.type("DHCP")
+						dc.uri("http://#{rs[:dhcp]}:7911")
+						dc.status(0)
+					}
+				}
+			end
+		end
+		
+		$log.debug "#{entity}"
 
+		begin 
+			response = RestClient.post url, entity, :content_type => 'application/vnd.abiquo.datacenter+xml'
+
+			if response.code == 201 # Resource created ok
+				xml = XmlSimple.xml_in(response)
+				$log.debug xml
+				$log.info "Datacenter created OK with id #{xml['id']}"
+				return xml['id']
+			end
+		rescue RestClient::Conflict
+			$log.info "Requested datacenter already exists."
+			return nil
+		end
+	end
 
 	def create_virtualdatacenter(	enterpriselink, iddatacenter )
 		$log.info "Instanciated virtualdatacenter for enterprise #{enterpriselink}"
@@ -168,11 +283,24 @@ class Abiquo
 		return nil
 	end
 
+	def get_kvm_definition(vmID)
+		# call login to get the link to VMs
+		url = "http://#{@@username}:#{@@password}@#{@@server}/api/login"
+		login = _httpget(url)
+		login['link'].each do |x|
+			if x['rel'] == 'virtualmachines'
+				url = x['href']
+			end
+		end
+		vms = _httpget(url)
+		$log.info "VMs count: #{vms.length}"
+	end
 end
 
 #require 'lib/enterprise'
 require 'lib/virtualdatacenter'
 require 'lib/virtualappliance'
+require 'lib/virtualmachine'
 require 'lib/datacenter'
 require 'lib/rack'
 #require 'lib/roles'
