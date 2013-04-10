@@ -2,6 +2,7 @@ require 'rest_client'
 require 'nokogiri'
 
 class Abiquo::VirtualMachine < Abiquo
+	attr_accessor :apixml
 	attr_accessor :url
 	attr_accessor :vapp
 	attr_accessor :id
@@ -105,10 +106,11 @@ class Abiquo::VirtualMachine < Abiquo
 							#$log.debug "NAME: #{name}"
 							if name == vmName #VM found
 								newvm = Abiquo::VirtualMachine.new()
+								newvm.apixml = vm.to_xml
 								newvm.url = vm.xpath('./link[@rel="edit"]').attribute('href').to_str()
 								newvm.vapp = vm.xpath('./link[@rel="virtualappliance"]').attribute('href').to_str()
 								newvm.id = vm.at('id').to_str
-								newvm.cpu = vm.at('cpu').to_strque 
+								newvm.cpu = vm.at('cpu').to_str
 								newvm.hdsize = vm.at('hdInBytes').to_str
 								newvm.ha = vm.at('highDisponibility').to_str
 								newvm.idstate = vm.at('idState').to_str
@@ -135,6 +137,90 @@ class Abiquo::VirtualMachine < Abiquo
 	def get_xml()
 		# TODO
 		# Generate XML definition for this VM
+		# We need disks and network devices
+		vmxml = Nokogiri::XML.parse(apixml)
+		## ROOT DISK
+		url = vmxml.xpath('//linkp[@rel="virtualmachinetemplate"]').attribute("href")
+		template_resp = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
+		template_xml = Nokogiri::XML.parse(template_resp)
+		
+	end
 
+	def buildxml(data...)
+		builder = Nokogiri::XML::Builder.new do |xml|
+			xml.domain('type' => 'kvm') {
+				xml.name(name)
+				xml.uuid(uuid)
+				xml.memory(ram)
+				xml.currentMemory(ram)
+				xml.vcpu(cpu)
+				xml.os {
+					xml.type_('arch' => 'x86_64', 'machine' => 'pc-0.13') { xml.text('hvm') }
+					xml.loader('/usr/bin/qemu-kvm')
+					xml.boot('dev' => 'hd')
+				}
+				xml.features {
+					xml.acpi
+					xml.apic
+					xml.pae
+				}
+				xml.clock('offset' => 'utc')
+				xml.on_poweroff('destroy')
+				xml.on_reboot('restart')
+				xml.on_crash('destroy')
+				xml.devices {
+					xml.emulator('/usr/bin/qemu-kvm')
+					xml.disk('type' => 'file') {
+
+					}
+					xml.controller('type' => 'ide', 'index' => '0') {
+						xml.address('type' => 'pci', 'domain' => '0x0000', 'bus' => '0x00', 'slot' => '0x01', 'function' => '0x1')
+					}
+					xml.interface {
+
+					}
+					xml.serial('type' => 'pty') {
+						xml.target('port' => '0')
+					}
+					xml.console('type' => 'pty') {
+						xml.target('type' => 'serial', 'port' => '0')
+					}
+					xml.input('type' => 'mouse', 'bus' => 'ps2')
+					xml.graphics('type' => 'vnc', 'port' => vdrpPort, 'autoport' => 'no', 'listen' => '0.0.0.0') {
+						xml.listen('type' => 'address', 'address' => '0.0.0.0')
+					}
+					xml.video {
+						xml.model('type' => 'cirrus', 'vram' => '9216', 'heads' => '1')
+						xml.address('type' => 'pci', 'domain' => '0x0000', 'bus' => '0x00', 'slot' => '0x02', 'function' => '0x0')
+					}
+					xml.memballoon('model' => 'virtio') {
+						xml.address('type' => 'pci', 'domain' => '0x0000', 'bus' => '0x00', 'slot' => '0x04', 'function' => '0x0')
+					}
+				}
+			}
+		end
+		return builder.to_xml
 	end
 end
+
+
+#    <emulator>/usr/bin/qemu-kvm</emulator>
+#    <disk type='file' device='disk'>
+#      <driver name='qemu' type='raw'/>
+#      <source file='/ABQ_4ad7e10e-3c0f-4af0-8623-6714491fc456'/>
+#      <target dev='hda' bus='ide'/>
+#      <address type='drive' controller='0' bus='0' unit='0'/>
+#    </disk>
+
+#    <interface type='bridge'>
+#      <mac address='52:54:00:16:95:98'/>
+#      <source bridge='abiquo_2'/>
+#      <model type='e1000'/>
+#      <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
+#    </interface>
+
+#    <memballoon model='virtio'>
+#      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
+#    </memballoon>
+#  </devices>
+#</domain>

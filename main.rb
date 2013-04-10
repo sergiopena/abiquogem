@@ -47,9 +47,10 @@ $log.level = Logger::DEBUG
 # Creates the conection to Abiquo api
 abq = Abiquo.new(AbiServer,AbiUser,AbiPass)
 
-vm = Abiquo::VirtualMachine.get_vm_by_name("ABQ_b9c10151-e5e7-48e3-9a66-76cccbaafa81")
+vm = Abiquo::VirtualMachine.get_vm_by_name("ABQ_c103e94a-d438-4f09-a890-99092453cbf6")
 $log.info "VM retrived: "
 $log.info "#{vm.inspect}"
+$log.info "VM XML: #{vm.get_xml()}"
 
 dct = abq.create_datacenter("prueba", "prueba", "prueba", :all => '10.60.10.10:80')
 $log.info "Received DC id: #{dct}"
