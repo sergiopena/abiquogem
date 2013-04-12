@@ -1,40 +1,60 @@
+require 'rest-client'
+require 'nokogiri'
+
 class Abiquo::Datacenter < Abiquo
+	attr_accessor :xml
 	attr_accessor :url
 	attr_accessor :id
-	attr_accessor :dc
+	attr_accessor :location
+	attr_accessor :name
+	attr_accessor :uuid
+	attr_accessor :storagedevs
+	attr_accessor :racks
+	attr_accessor :rs
 
-	def initialize(dc)
-		self.dc = dc
+	def initialize(dcxml)
+		d = Nokogiri::XML.parse(dcxml)
+		@xml = dcxml
+		@url = d.xpath('//link[@rel="edit"]').attribute('href').to_str
+		@storagedevs = d.xpath('//link[@rel="devices"]').attribute('href').to_str
+		@racks = d.xpath('//link[@rel="racks"]').attribute('href').to_str
+		@rs = d.xpath('//link[@rel="remoteservices"]').attribute('href').to_str
+		@id = d.at('id').to_str
+		@location = d.at('id').to_str
+		@name = d.at('id').to_str
+		@uuid = d.at('id').to_str
 	end
 
-	def show_id
-		return self.dc["id"]
+	def self.get_by_id(id)
+		url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters"
+		dcsxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
+		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
+		d.each do |dc|
+			if dc.at('id').to_str == id.to_s 
+				return Abiquo::Datacenter.new(dc.to_xml)
+			end
+		end
 	end
 
-	def list_racks()
-		url = self._getlinks self.dc,'racks'
-		xml = self._httpget(url)
-		racks = []
-		xml['rack'].each { |r|
-			racks << r["id"][0]
-		}
-		return racks
+	def get_racks()
+		retracks = Array.new()
+		racksxml = RestClient::Request.new(:method => :get, :url => @racks, :user => @@username, :password => @@password).execute
+		r = Nokogiri::XML.parse(racksxml).xpath('//racks/rack')
+		r.each do |rack|
+			retracks << Abiquo::Rack.new(rack)
+		end
+
+		return retracks
 	end
 
 	def get_rack_by_id(id)
-		url = "api/admin/datacenters/#{self.dc["id"]}/racks"
-		xml = self._httpget(url)
-
-		xml['rack'].each { |r|
-			$log.debug "Iterating rack #{r['id']} #{r['id'].class} #{r['id'][0].class}"
-			$log.debug "Parameter id #{id} #{id.class}"
-				
-			if r["id"][0] == id
-				$log.info "Found rack #{r['id']}"
-				return r
+		racksxml = RestClient::Request.new(:method => :get, :url => @racks, :user => @@username, :password => @@password).execute
+		r = Nokogiri::XML.parse(racksxml).xpath('//racks/rack')
+		r.each do |rack|
+			if rack.at('id').to_str == id.to_s
+				return Abiquo::Rack.new(rack)
 			end
-		}
-
+		end
 		return nil
 	end
 

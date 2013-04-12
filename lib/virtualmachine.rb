@@ -23,6 +23,14 @@ class Abiquo::VirtualMachine < Abiquo
 
 	end
 
+	def poweron()
+			
+	end
+
+	def poweroff()
+
+	end
+	
 	def self.get_vm_by_id(idVM)
 		# Loop every vdc, vapp to find the vm.
 		url = "http://#{@@server}/api/cloud/virtualdatacenters"
@@ -143,64 +151,64 @@ class Abiquo::VirtualMachine < Abiquo
 		url = vmxml.xpath('//linkp[@rel="virtualmachinetemplate"]').attribute("href")
 		template_resp = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
 		template_xml = Nokogiri::XML.parse(template_resp)
-		
+
 	end
 
-	def buildxml(data...)
-		builder = Nokogiri::XML::Builder.new do |xml|
-			xml.domain('type' => 'kvm') {
-				xml.name(name)
-				xml.uuid(uuid)
-				xml.memory(ram)
-				xml.currentMemory(ram)
-				xml.vcpu(cpu)
-				xml.os {
-					xml.type_('arch' => 'x86_64', 'machine' => 'pc-0.13') { xml.text('hvm') }
-					xml.loader('/usr/bin/qemu-kvm')
-					xml.boot('dev' => 'hd')
-				}
-				xml.features {
-					xml.acpi
-					xml.apic
-					xml.pae
-				}
-				xml.clock('offset' => 'utc')
-				xml.on_poweroff('destroy')
-				xml.on_reboot('restart')
-				xml.on_crash('destroy')
-				xml.devices {
-					xml.emulator('/usr/bin/qemu-kvm')
-					xml.disk('type' => 'file') {
-
-					}
-					xml.controller('type' => 'ide', 'index' => '0') {
-						xml.address('type' => 'pci', 'domain' => '0x0000', 'bus' => '0x00', 'slot' => '0x01', 'function' => '0x1')
-					}
-					xml.interface {
-
-					}
-					xml.serial('type' => 'pty') {
-						xml.target('port' => '0')
-					}
-					xml.console('type' => 'pty') {
-						xml.target('type' => 'serial', 'port' => '0')
-					}
-					xml.input('type' => 'mouse', 'bus' => 'ps2')
-					xml.graphics('type' => 'vnc', 'port' => vdrpPort, 'autoport' => 'no', 'listen' => '0.0.0.0') {
-						xml.listen('type' => 'address', 'address' => '0.0.0.0')
-					}
-					xml.video {
-						xml.model('type' => 'cirrus', 'vram' => '9216', 'heads' => '1')
-						xml.address('type' => 'pci', 'domain' => '0x0000', 'bus' => '0x00', 'slot' => '0x02', 'function' => '0x0')
-					}
-					xml.memballoon('model' => 'virtio') {
-						xml.address('type' => 'pci', 'domain' => '0x0000', 'bus' => '0x00', 'slot' => '0x04', 'function' => '0x0')
-					}
-				}
-			}
-		end
-		return builder.to_xml
-	end
+#	def buildxml(data...)
+#		builder = Nokogiri::XML::Builder.new do |xml|
+#			xml.domain('type' => 'kvm') {
+#				xml.name(name)
+#				xml.uuid(uuid)
+#				xml.memory(ram)
+#				xml.currentMemory(ram)
+#				xml.vcpu(cpu)
+#				xml.os {
+#					xml.type_('arch' => 'x86_64', 'machine' => 'pc-0.13') { xml.text('hvm') }
+#					xml.loader('/usr/bin/qemu-kvm')
+#					xml.boot('dev' => 'hd')
+#				}
+#				xml.features {
+#					xml.acpi
+#					xml.apic
+#					xml.pae
+#				}
+#				xml.clock('offset' => 'utc')
+#				xml.on_poweroff('destroy')
+#				xml.on_reboot('restart')
+#				xml.on_crash('destroy')
+#				xml.devices {
+#					xml.emulator('/usr/bin/qemu-kvm')
+#					xml.disk('type' => 'file') {
+#
+#					}
+#					xml.controller('type' => 'ide', 'index' => '0') {
+#						xml.address('type' => 'pci', 'domain' => '0x0000', 'bus' => '0x00', 'slot' => '0x01', 'function' => '0x1')
+#					}
+#					xml.interface {
+#
+#					}
+#					xml.serial('type' => 'pty') {
+#						xml.target('port' => '0')
+#					}
+#					xml.console('type' => 'pty') {
+#						xml.target('type' => 'serial', 'port' => '0')
+#					}
+#					xml.input('type' => 'mouse', 'bus' => 'ps2')
+#					xml.graphics('type' => 'vnc', 'port' => vdrpPort, 'autoport' => 'no', 'listen' => '0.0.0.0') {
+#						xml.listen('type' => 'address', 'address' => '0.0.0.0')
+#					}
+#					xml.video {
+#						xml.model('type' => 'cirrus', 'vram' => '9216', 'heads' => '1')
+#						xml.address('type' => 'pci', 'domain' => '0x0000', 'bus' => '0x00', 'slot' => '0x02', 'function' => '0x0')
+#					}
+#					xml.memballoon('model' => 'virtio') {
+#						xml.address('type' => 'pci', 'domain' => '0x0000', 'bus' => '0x00', 'slot' => '0x04', 'function' => '0x0')
+#					}
+#				}
+#			}
+#		end
+#		return builder.to_xml
+#	end
 end
 
 
