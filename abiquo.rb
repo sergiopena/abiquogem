@@ -14,7 +14,7 @@ require 'builder'
 require 'rest_client'
 
 class Abiquo
-
+	attr_accessor :admin_api
 	#
 	# 
 	# 
@@ -22,14 +22,14 @@ class Abiquo
 		@@server = server
 		@@username = username
 		@@password = password
+		@admin_api = "http://#{server}/api/admin"
 	end
 
 	def create_datacenter(name, uuid, location, rs={})
 		url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters"
 		builder = Builder::XmlMarkup.new
-		$log.debug "rs length = #{rs.length}"
+
 		if rs.length == 1 
-			$log.debug "RS: #{rs[:all]}"
 			ip, port = rs[:all].split(':')
 			entity = builder.datacenter do |dc|
 				dc.uuid(uuid)
@@ -119,8 +119,6 @@ class Abiquo
 				}
 			end
 		end
-		
-		$log.debug "#{entity}"
 
 		begin 
 			response = RestClient.post url, entity, :content_type => 'application/vnd.abiquo.datacenter+xml'
@@ -128,13 +126,23 @@ class Abiquo
 			if response.code == 201 # Resource created ok
 				xml = XmlSimple.xml_in(response)
 				$log.debug xml
-				$log.info "Datacenter created OK with id #{xml['id']}"
-				return xml['id']
+				return Abiquo::Datacenter.new(xml)
 			end
 		rescue RestClient::Conflict
 			$log.info "Requested datacenter already exists."
-			return nil
+			return Abiquo::Datacenter.get_by_uuid(uuid)
 		end
+	end
+
+	def get_datacenters()
+		retdcs = Hash.new()
+		dcsxml = RestClient::Request.new(:method => :get, :url => "#{@admin_api}/datacenters", :user => @@username, :password => @@password).execute
+		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
+		d.each do |dc|
+			retdcs[dc.at('name').to_str] = Abiquo::Datacenter.new(dc.to_xml)
+		end
+
+		return retdcs
 	end
 
 	def create_virtualdatacenter(	enterpriselink, iddatacenter )
