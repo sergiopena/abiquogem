@@ -33,7 +33,7 @@ require 'pp'
 # Configuration options
 #########################################################
 #AbiServer = '192.168.1.156'
-AbiServer = '10.60.13.4'
+AbiServer = '10.60.13.18'
 AbiUser = 'admin'
 AbiPass = 'xabiquo'
 IdDatacenter = 1
@@ -41,7 +41,6 @@ IdDatacenter = 1
 $log = Logger.new(STDOUT)
 #$log.level = Logger::INFO
 $log.level = Logger::DEBUG
-
 
 # 
 # Creates the conection to Abiquo api
@@ -65,8 +64,10 @@ abq = Abiquo.new(AbiServer,AbiUser,AbiPass)
 # Delete Datacenter test
 #dct.delete
 
-dc = Abiquo::Datacenter.get_by_name("BCN")
+dc = Abiquo::Datacenter.get_by_name("dc")
+if not dc.nil? then
+	puts "Datacenter not found."
+	exit 0
+end
 rack = dc.get_rack_by_name("RACK mock")
 m = rack.add_physicalmachine(:ip => '192.168.2.56', :user => 'root', :password => 'temporal', :name => 'PROVA-API', :datastore => "datastore1", :vswitch => "vSwitch1")
-
-
