@@ -1,7 +1,7 @@
 require 'rest-client'
 require 'nokogiri'
 
-class Abiquo::Rack < Abiquo::Datacenter
+class Abiquo::Rack < Abiquo
 	attr_accessor :xml
 	attr_accessor :url
 	attr_accessor :datacenter
@@ -35,14 +35,103 @@ class Abiquo::Rack < Abiquo::Datacenter
 		@vlanPerVdcReserved = r.at('/rack/vlanPerVdcReserved').to_str
   	end
 
-  	def self.get_by_name(racks_url, rack_name)
-  		rackxml = RestClient::Request.new(:method => :get, :url => racks_url, :user => @@username, :password => @@password).execute
-		Nokogiri::XML.parse(rackxml).xpath('//racks/rack').each do |rack|
-			if rack.at('name').to_str == rack_name
-				return Abiquo::Rack.new(rack.to_xml)
+  	def self.list_all()
+  		racks = Array.new
+		dcurl = "#{@@admin_api}/datacenters"
+  		dcxml = RestClient::Request.new(:method => :get, :url => dcurl, :user => @@username, :password => @@password, :headers => { 'accept' => 'application/vnd.abiquo.datacenters+xml'}).execute
+  		Nokogiri::XML.parse(rackxml).xpath('//datacenters/datacenter').each do |dc|
+  			racksurl = dc.xpath('./link[@rel="racks"]')
+			rackxml = RestClient::Request.new(:method => :get, :url => racksurl, :user => @@username, :password => @@password).execute
+  			Nokogiri::XML.parse(rackxml).xpath('//racks/rack').each do |rack|
+				if rack.at('name').to_str == rack_name
+					racks << Abiquo::Rack.new(rack.to_xml)
+				end
+			end
+		end
+		return racks
+  	end
+
+  	def self.get_by_name(rack_name)
+  		dcurl = "#{@@admin_api}/datacenters"
+  		dcxml = RestClient::Request.new(:method => :get, :url => dcurl, :user => @@username, :password => @@password, :headers => { 'accept' => 'application/vnd.abiquo.datacenters+xml'}).execute
+  		Nokogiri::XML.parse(rackxml).xpath('//datacenters/datacenter').each do |dc|
+  			racksurl = dc.xpath('./link[@rel="racks"]')
+			rackxml = RestClient::Request.new(:method => :get, :url => racksurl, :user => @@username, :password => @@password).execute
+  			Nokogiri::XML.parse(rackxml).xpath('//racks/rack').each do |rack|
+				if rack.at('name').to_str == rack_name
+					return Abiquo::Rack.new(rack.to_xml)
+				end
 			end
 		end
   	end
+
+  	def self.get_by_id(id)
+		dcurl = "#{@@admin_api}/datacenters"
+  		dcxml = RestClient::Request.new(:method => :get, :url => dcurl, :user => @@username, :password => @@password, :headers => { 'accept' => 'application/vnd.abiquo.datacenters+xml'}).execute
+  		Nokogiri::XML.parse(dcxml).xpath('//datacenters/datacenter').each do |dc|
+  			$log.info "DC : dc.to_xml"
+  			racksurl = dc.xpath('./link[@rel="racks"]')
+  			$log.info "URL : #{racksurl.to_str}"
+			rackxml = RestClient::Request.new(:method => :get, :url => racksurl, :user => @@username, :password => @@password).execute
+  			Nokogiri::XML.parse(rackxml).xpath('//racks/rack').each do |rack|
+				if rack.at('id').to_str == rack_name
+					return Abiquo::Rack.new(rack.to_xml)
+				end
+			end
+		end
+	end
+
+	def self.create_standard(dc, name, desc, ha, vlanmin, vlanmax, vlanavoid)
+		content = "application/vnd.abiquo.rack+xml;"
+		builder = Builder::XmlMarkup.new
+		entity = builder.rack do |rack|
+			rack.name(name)
+			rack.shortDescription(desc)
+			rack.haEnabled(ha)
+			rack.nsrq(10)
+			rack.vlanIdMax(vlanmax)
+			rack.vlanIdMin(vlanmin)
+		end
+		
+		begin 
+			content = 'application/vnd.abiquo.rack+xml'
+			resour = RestClient::Resource.new(dc.racks, :user => @@username, :password => @@password)
+			resp = resour.post entity, :content_type => content
+			return Abiquo::Rack.new(resp)
+		rescue RestClient::Conflict
+			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
+			errormsg.each do |error|
+				raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+			end
+		end
+	end
+
+	def update_standard()
+		content = "application/vnd.abiquo.rack+xml;"
+		builder = Builder::XmlMarkup.new
+		entity = builder.rack do |rack|
+			rack.name(@name)
+			rack.shortDescription(@desc)
+			rack.haEnabled(@ha)
+			rack.nsrq(@msrq)
+			rack.vlanIdMax(@vlanmax)
+			rack.vlanIdMin(@vlanmin)
+			@vlansIdAvoided.nil? ? rack.vlansIdAvoided(@vlansIdAvoided) : rack.vlansIdAvoided()
+			rack.link('rel' => 'edit', 'href' => @url, 'type' => content)
+		end
+		$log.info "ENT : #{entity.inspect}"
+		begin 
+			content = 'application/vnd.abiquo.rack+xml'
+			resour = RestClient::Resource.new(@url, :user => @@username, :password => @@password)
+			resp = resour.put entity, :content_type => content
+			return Abiquo::Rack.new(resp)
+		rescue RestClient::Conflict
+			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
+			errormsg.each do |error|
+				raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+			end
+		end
+	end
 
 	def get_machines()
 		machinesxml = RestClient::Request.new(:method => :get, :url => @machines, :user => @@username, :password => @@password).execute
@@ -50,14 +139,12 @@ class Abiquo::Rack < Abiquo::Datacenter
 		Nokogiri::XML.parse(machinesxml).xpath('//machines/machine').each do |machine|
 			gotMachines << Abiquo::Machine.new(machine.to_xml)
 		end
-
 		return gotMachines
 	end
 
 	def get_machine_by_id(id)
 		url = "#{@machines}/#{id}"
 		machinexml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
-
 		return Abiquo::Machine.new(machinexml)
 	end
 
@@ -66,69 +153,8 @@ class Abiquo::Rack < Abiquo::Datacenter
 		response = req.execute
 	end
 
-	def add_physicalmachine(node_hash)
-		url = "#{datacenter}/action/hypervisor?ip=#{node_hash[:ip]}"
-		htype = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
-		discurl = "#{datacenter}/action/discoversingle?hypervisor=#{htype}&ip=#{node_hash[:ip]}&user=#{node_hash[:user]}&password=#{node_hash[:password]}"
-
-		machinexml = RestClient::Request.new(:method => :get, :url => discurl, :user => @@username, :password => @@password).execute
-		machine = Nokogiri::XML.parse(machinexml)
-
-		mnode = machine.xpath("/machine").first
-		mnode.add_child(Nokogiri::XML::Node.new('password', machine))
-		mnode.add_child(Nokogiri::XML::Node.new('user', machine))
-		mnode.add_child(Nokogiri::XML::Node.new('ipService', machine))
-		mnode.add_child(Nokogiri::XML::Node.new('ipmiIP', machine))
-		mnode.add_child(Nokogiri::XML::Node.new('ipmiPassword', machine))
-		mnode.add_child(Nokogiri::XML::Node.new('ipmiPort', machine))
-		mnode.add_child(Nokogiri::XML::Node.new('ipmiUser', machine))
-		mnode.add_child(Nokogiri::XML::Node.new('description', machine))
-		
-		node_hash.keys.each do |attrName|
-			case attrName.to_s
-			when "datastore"
-				ds = machine.xpath("/machine/datastores/datastore[name='#{node_hash[attrName]}']/enabled").first 
-				if not ds.nil?
-					ds.content = 'true'
-				end
-			when "vswitch"
-				vs = machine.xpath("/machine/networkInterfaces/networkinterface[name='#{node_hash[attrName]}']").first
-				if not vs.nil?
-					t = Nokogiri::XML::Node.new('link', machine)
-					t.set_attribute('rel', 'networkservicetype')
-					t.set_attribute('type', 'application/vnd.abiquo.networkservicetype+xml')
-					t.set_attribute('href', "#{datacenter}/networkservicetypes/1")
-					vs.add_child(t)
-				end
-			else
-				att = machine.xpath("/machine/#{attrName}").first
-				if not att.nil?
-					att.content = node_hash[attrName]
-				end
-			end
-		end	
-
-		# Let's see if ther is no ds enabled, to enable one of them
-		if machine.xpath("/machine/datastores/datastore/enabled[text()='true']").length == 0
-			machine.xpath('/machine/datastores/datastore/enabled').first.content = 'true'
-		end
-		# same with nics
-		if machine.xpath("/machine/networkInterfaces/networkinterface/link[@rel='networkservicetype']").length == 0
-			t = Nokogiri::XML::Node.new('link', ent)
-			t.set_attribute('rel', 'networkservicetype')
-			t.set_attribute('type', 'application/vnd.abiquo.networkservicetype+xml')
-			t.set_attribute('href', "#{datacenter}/networkservicetypes/1")
-			machine.xpath('/machine/networkInterfaces/networkinterface').first.add_child(t)
-		end
-		begin 
-			content = 'application/vnd.abiquo.machine+xml'
-			resour = RestClient::Resource.new("#{@url}/machines", :user => @@username, :password => @@password)
-			resp = resour.post "#{machine.xpath('/machine').to_xml}", :content_type => content
-			return Abiquo::Machine.new(resp)
-		rescue RestClient::Conflict
-			$log.info "Requested Machine already exists."
-			return nil
-		end
+	def get_datacenter()
+		dcxml = RestClient::Request.new(:method => :get, :url => @datacenter, :user => @@username, :password => @@password, :headers => {'accept'=>'application/vnd.abiquo.datacenters+xml'}).execute
+		return Abiquo::Machine.new(Nokogiri::XML.parse(dcxml).xpath('//datacenters/datacenter').to_xml)
 	end
 end
-

@@ -1,11 +1,12 @@
 require 'rest-client'
 require 'nokogiri'
 
-class Abiquo::Machine < Abiquo::Rack
+class Abiquo::Machine < Abiquo
 	attr_accessor :xml
 	attr_accessor :url
 	attr_accessor :datastores
 	attr_accessor :rack
+	attr_accessor :checkstate
 	attr_accessor :virtualmachines
 	attr_accessor :id
 	attr_accessor :description
@@ -29,6 +30,7 @@ class Abiquo::Machine < Abiquo::Rack
 		@datastores = m.xpath('//link[@rel="datastores"]').attribute('href').to_str
 		@rack = m.xpath('//link[@rel="rack"]').attribute('href').to_str
 		@virtualmachines  = m.xpath('//link[@rel="virtualmachines"]').attribute('href').to_str
+		@checkstate = m.xpath('//link[@rel="checkstate"]').attribute('href').to_str
 		@id = m.at('/machine/id').to_str
 		@description = m.at('/machine/description').to_str
 		@initiatorIQN = m.at('/machine/initiatorIQN').to_str
@@ -46,7 +48,7 @@ class Abiquo::Machine < Abiquo::Rack
 	end
 
 	def self.get_by_id(id)
-		url = "http://#{@@server}/api/admin/datacenters"
+		url = "#{@@admin_api}/datacenters"
 		dcxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
 		Nokogiri::XML.parse(dcxml).xpath('//link[@rel="racks"]').each do |dc|
 			racksurl = dc.attribute('href').to_str
@@ -64,7 +66,7 @@ class Abiquo::Machine < Abiquo::Rack
 	end
 
 	def self.get_by_name(name)
-		url = "http://#{@@server}/api/admin/datacenters"
+		url = "#{@@admin_api}/datacenters"
 		dcxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
 		Nokogiri::XML.parse(dcxml).xpath('//link[@rel="racks"]').each do |dc|
 			racksurl = dc.attribute('href').to_str
@@ -82,7 +84,7 @@ class Abiquo::Machine < Abiquo::Rack
 	end
 
 	def self.get_by_ip(ipAddress)
-		url = "http://#{@@server}/api/admin/datacenters"
+		url = "#{@@admin_api}/datacenters"
 		dcxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
 		Nokogiri::XML.parse(dcxml).xpath('//link[@rel="racks"]').each do |dc|
 			racksurl = dc.attribute('href').to_str
@@ -95,6 +97,76 @@ class Abiquo::Machine < Abiquo::Rack
 						return Abiquo::Machine.new(machine.to_xml)
 					end
 				end
+			end
+		end
+	end
+
+	def self.add_machine(rack, node_hash)
+		url = "#{rack.datacenter}/action/hypervisor?ip=#{node_hash[:ip]}"
+		htype = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
+		discurl = "#{rack.datacenter}/action/discoversingle?hypervisor=#{htype}&ip=#{node_hash[:ip]}&user=#{node_hash[:user]}&password=#{node_hash[:password]}"
+
+		nstroot = "#{rack.datacenter}/networkservicetypes"
+		nstxml = RestClient::Request.new(:method => :get, :url => nstroot, :user => @@username, :password => @@password).execute
+		nsts = Nokogiri::XML.parse(nstxml).xpath('//networkservicestypes/networkservicetype')
+		nstelement = nil
+		nsts.each do |nst|
+			if nst.at('defaultNST').to_str == "true" then
+				nstelement = nst.xpath('./link[@rel="edit"]').first
+			end
+		end
+		nstelement.set_attribute("rel", "networkservicetype")
+
+		machinexml = RestClient::Request.new(:method => :get, :url => discurl, :user => @@username, :password => @@password).execute
+		machine = Nokogiri::XML.parse(machinexml)
+
+		mnode = machine.xpath("/machine").first
+		mnode.add_child(Nokogiri::XML::Node.new('password', machine))
+		mnode.add_child(Nokogiri::XML::Node.new('user', machine))
+		mnode.add_child(Nokogiri::XML::Node.new('ipService', machine))
+		mnode.add_child(Nokogiri::XML::Node.new('ipmiIP', machine))
+		mnode.add_child(Nokogiri::XML::Node.new('ipmiPassword', machine))
+		mnode.add_child(Nokogiri::XML::Node.new('ipmiPort', machine))
+		mnode.add_child(Nokogiri::XML::Node.new('ipmiUser', machine))
+		mnode.add_child(Nokogiri::XML::Node.new('description', machine))
+		
+		node_hash.keys.each do |attrName|
+			case attrName.to_s
+			when "datastore"
+				ds = machine.xpath("/machine/datastores/datastore[name='#{node_hash[attrName]}']/enabled").first 
+				if not ds.nil?
+					ds.content = 'true'
+				end
+			when "vswitch"
+				vs = machine.xpath("/machine/networkInterfaces/networkinterface[name='#{node_hash[attrName]}']").first
+				if not vs.nil?
+					vs.add_child(nstelement)
+				end
+			else
+				att = machine.xpath("/machine/#{attrName}").first
+				if not att.nil?
+					att.content = node_hash[attrName]
+				end
+			end
+		end	
+
+		# Let's see if ther is no ds enabled, to enable one of them
+		if machine.xpath("/machine/datastores/datastore/enabled[text()='true']").length == 0
+			machine.xpath('/machine/datastores/datastore/enabled').first.content = 'true'
+		end
+		# same with nics
+		if machine.xpath("/machine/networkInterfaces/networkinterface/link[@rel='networkservicetype']").length == 0
+			machine.xpath('/machine/networkInterfaces/networkinterface').first.add_child(nstelement)
+		end
+		begin 
+			content = 'application/vnd.abiquo.machine+xml'
+			resour = RestClient::Resource.new("#{rack.url}/machines", :user => @@username, :password => @@password)
+			resp = resour.post "#{machine.xpath('/machine').to_xml}", :content_type => content
+			return Abiquo::Machine.new(resp)
+		rescue => e
+			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
+			errormsg.each do |error|
+				raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
 			end
 		end
 	end
@@ -124,32 +196,7 @@ class Abiquo::Machine < Abiquo::Rack
 	end
 
 	def checkstate()
-		# TODO?
+		req = RestClient::Request.new(:method => :get, :url => @checkstate, :user => @@username, :password => @@password)
+		response = req.execute
 	end
 end
-
-
-=begin
-<machine>
-  <link rel="rack" type="application/vnd.abiquo.rack+xml" href="http://10.60.13.4:80/api/admin/datacenters/1/racks/4"/>
-  <link rel="edit" type="application/vnd.abiquo.machine+xml" href="http://10.60.13.4:80/api/admin/datacenters/1/racks/4/machines/27"/>
-  <link rel="datastores" type="application/vnd.abiquo.datastores+xml" href="http://10.60.13.4:80/api/admin/datacenters/1/racks/4/machines/27/datastores"/>
-  <link rel="virtualmachines" type="application/vnd.abiquo.virtualmachines+xml" href="http://10.60.13.4:80/api/admin/datacenters/1/racks/4/machines/27/virtualmachines"/>
-  <link rel="checkstate" type="application/vnd.abiquo.machinestate+xml" href="http://10.60.13.4:80/api/admin/datacenters/1/racks/4/machines/27/action/checkstate"/>
-  <link rel="reenableafterha" type="application/vnd.abiquo.machine+xml" href="http://10.60.13.4:80/api/admin/datacenters/1/racks/4/machines/27/action/reenableafterha"/>
-  <link rel="checkipmi" href="http://10.60.13.4:80/api/admin/datacenters/1/racks/4/machines/27/action/checkipmi"/>
-  <link rel="checkipmistate" type="application/vnd.abiquo.machineipmistate+xml" href="http://10.60.13.4:80/api/admin/datacenters/1/racks/4/machines/27/action/checkipmistate"/>
-  <link rel="refreshnics" type="application/vnd.abiquo.machine+xml" href="http://10.60.13.4:80/api/admin/datacenters/1/racks/4/machines/27/action/nics/refresh"/>
-
-  <networkInterfaces>
-    <networkinterface>
-      <link rel="networkservicetype" type="application/vnd.abiquo.networkservicetype+xml" href="http://10.60.13.4:80/api/admin/datacenters/1/networkservicetypes/1"/>
-      <mac>00:15:c5:ff:1b:8a</mac>
-      <name>vSwitch0</name>
-    </networkinterface>
-    <networkinterface>
-      <mac>00:15:c5:ff:1b:8c</mac>
-      <name>vSwitch1</name>
-    </networkinterface>
-  </networkInterfaces>
-=end

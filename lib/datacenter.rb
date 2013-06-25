@@ -12,6 +12,9 @@ class Abiquo::Datacenter < Abiquo
 	attr_accessor :racks
 	attr_accessor :rs
 
+	@@resource_url = "/datacenters"
+	@@accept_header = "application/vnd.abiquo.datacenters+xml"
+
 	def initialize(dcxml)
 		d = Nokogiri::XML.parse(dcxml)
 		@xml = dcxml
@@ -25,8 +28,19 @@ class Abiquo::Datacenter < Abiquo
 		@uuid = d.at('/datacenter/uuid').to_str
 	end
 
+	def self.list_all()
+		url = "#{@@admin_api}#{@@resource_url}"
+		dcsxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password, :headers => { 'accept' => @@accept_header}).execute
+		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
+		dcs = Array.new
+		d.each do |dc|
+			dcs << Abiquo::Datacenter.new(dc.to_xml)
+		end
+		return dcs
+	end
+
 	def self.get_by_id(id)
-		url = "http://#{@@server}/api/admin/datacenters"
+		url = "#{@@admin_api}#{@@resource_url}"
 		dcsxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
 		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
 		d.each do |dc|
@@ -37,7 +51,7 @@ class Abiquo::Datacenter < Abiquo
 	end
 
 	def self.get_by_uuid(uuid)
-		url = "http://#{@@server}/api/admin/datacenters"
+		url = "#{@@admin_api}#{@@resource_url}"
 		dcsxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
 		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
 		d.each do |dc|
@@ -48,7 +62,7 @@ class Abiquo::Datacenter < Abiquo
 	end
 
 	def self.get_by_name(name)
-		url = "http://#{@@server}/api/admin/datacenters"
+		url = "#{@@admin_api}#{@@resource_url}"
 		dcsxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
 		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
 		d.each do |dc|
@@ -58,9 +72,163 @@ class Abiquo::Datacenter < Abiquo
 		end
 	end
 
+	def self.create(name, uuid, location, rs={})
+		url = "#{@@admin_api}#{@@resource_url}"
+		builder = Builder::XmlMarkup.new
+
+		if rs.length == 1 
+			ip, port = rs[:all].split(':')
+			entity = builder.datacenter do |dc|
+				dc.uuid(uuid)
+				dc.name(name)
+				dc.location(location)
+				dc.remoteServices {
+					dc.totalSize(7)
+					dc.remoteService {
+						dc.type("VIRTUAL_FACTORY")
+						dc.uri("http://#{ip}:#{port}/virtualfactory")
+						dc.status(0)
+					}
+					dc.remoteService {
+						dc.type("VIRTUAL_SYSTEM_MONITOR")
+						dc.uri("http://#{ip}:#{port}/vsm")
+						dc.status(0)
+					}
+					dc.remoteService {
+						dc.type("APPLIANCE_MANAGER")
+						dc.uri("http://#{ip}:#{port}/am")
+						dc.status(0)
+					}
+					dc.remoteService {
+						dc.type("NODE_COLLECTOR")
+						dc.uri("http://#{ip}:#{port}/nodecollector")
+						dc.status(0)
+					}
+					dc.remoteService {
+						dc.type("STORAGE_SYSTEM_MONITOR")
+						dc.uri("http://#{ip}:#{port}/ssm")
+						dc.status(0)
+					}
+					dc.remoteService {
+						dc.type("BPM_SERVICE")
+						dc.uri("http://#{ip}:#{port}/bpm-async")
+						dc.status(0)
+					}
+					dc.remoteService {
+						dc.type("DHCP_SERVICE")
+						dc.uri("http://#{ip}:7911")
+						dc.status(0)
+					}
+				}
+			end
+		elsif rs.length == 7
+			entity = builder.datacenter do |dc|
+				dc.uuid(uuid)
+				dc.name(name)
+				dc.location(location)
+				dc.remoteServices { 
+					dc.totalSize(7)
+					dc.remoteService { 
+						dc.type("VIRTUAL_FACTORY")
+						dc.uri("http://#{rs[:vf]}/virtualfactory")
+						dc.status(0)
+					}
+					dc.remoteService { 
+						dc.type("VIRTUAL_FACTORY")
+						dc.uri("http://#{rs[:vsm]}/vsm")
+						dc.status(0)
+					}
+					dc.remoteService { 
+						dc.type("VIRTUAL_FACTORY")
+						dc.uri("http://#{rs[:am]}/am")
+						dc.status(0)
+					}
+					dc.remoteService { 
+						dc.type("VIRTUAL_FACTORY")
+						dc.uri("http://#{rs[:nc]}/nodecollector")
+						dc.status(0)
+					}
+					dc.remoteService { 
+						dc.type("VIRTUAL_FACTORY")
+						dc.uri("http://#{rs[:ssm]}/ssm")
+						dc.status(0)
+					}
+					dc.remoteService { 
+						dc.type("BPM-ASYNC")
+						dc.uri("http://#{rs[:bpm]}/bpm-async")
+						dc.status(0)
+					}
+					dc.remoteService { 
+						dc.type("DHCP")
+						dc.uri("http://#{rs[:dhcp]}:7911")
+						dc.status(0)
+					}
+				}
+			end
+		end
+
+		begin 
+			content = 'application/vnd.abiquo.datacenter+xml'
+			resour = RestClient::Resource.new("#{url}", :user => @@username, :password => @@password)
+			resp = resour.post entity, :content_type => content
+			return Abiquo::Datacenter.new(resp)
+		rescue => e
+			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
+			errormsg.each do |error|
+				raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+			end
+		end
+	end
+
 	def delete()
 		req = RestClient::Request.new(:method => :delete, :url => @url, :user => @@username, :password => @@password)
 		response = req.execute
+	end
+
+	def update()
+		url = "#{@url}"
+		builder = Builder::XmlMarkup.new
+
+		entity = builder.datacenter do |dc|
+			dc.uuid(@uuid)
+			dc.name(@name)
+			dc.location(@location)
+		end
+
+		begin 
+			content = 'application/vnd.abiquo.datacenter+xml'
+			resour = RestClient::Resource.new("#{url}", :user => @@username, :password => @@password)
+			resp = resour.put entity, :content_type => content
+			return Abiquo::Datacenter.new(resp)
+		rescue
+			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
+			errormsg.each do |error|
+				raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+			end
+		end
+	end
+
+	def update_remote_service(type, uri)
+		rsxml = RestClient::Request.new(:method => :get, :url => @rs, :user => @@username, :password => @@password).execute
+		r = Nokogiri::XML.parse(rsxml).xpath('//remoteServices/remoteService')
+		r.each do |rs|
+			rstype = rs.at('type').to_str
+			if rstype == type then
+				url = rs.xpath('./link[@rel="edit"]').attribute("href")
+				rs.at('uri').content = uri
+				
+				begin 
+					content = 'application/vnd.abiquo.remoteservice+xml'
+					resour = RestClient::Resource.new("#{url}", :user => @@username, :password => @@password)
+					resp = resour.put rs.to_xml, :content_type => content
+				rescue RestClient::Conflict => e
+					errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
+					errormsg.each do |error|
+						raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+					end
+				end
+			end
+		end
 	end
 
 	def get_racks()
@@ -72,50 +240,5 @@ class Abiquo::Datacenter < Abiquo
 		end
 
 		return retracks
-	end
-
-	def get_rack_by_id(id)
-		racksxml = RestClient::Request.new(:method => :get, :url => @racks, :user => @@username, :password => @@password).execute
-		r = Nokogiri::XML.parse(racksxml).xpath('//racks/rack')
-		r.each do |rack|
-			if rack.at('id').to_str == id.to_s
-				return Abiquo::Rack.new(rack)
-			end
-		end
-		return nil
-	end
-
-	def get_rack_by_name(name)
-		racksxml = RestClient::Request.new(:method => :get, :url => @racks, :user => @@username, :password => @@password).execute
-		r = Nokogiri::XML.parse(racksxml).xpath('//racks/rack')
-		r.each do |rack|
-			if rack.at('name').to_str == name.to_s
-				return Abiquo::Rack.new(rack.to_xml)
-			end
-		end
-		return nil
-	end
-
-	def create_standard_rack(name, desc, ha, vlanmin, vlanmax, vlanavoid)
-		content = "application/vnd.abiquo.rack+xml;"
-		builder = Builder::XmlMarkup.new
-		entity = builder.rack do |rack|
-			rack.name(name)
-			rack.shortDescription(desc)
-			rack.haEnabled(ha)
-			rack.nsrq(10)
-			rack.vlanIdMax(vlanmax)
-			rack.vlanIdMin(vlanmin)
-		end
-		
-		begin 
-			content = 'application/vnd.abiquo.rack+xml'
-			resour = RestClient::Resource.new(@racks, :user => @@username, :password => @@password)
-			resp = resour.post entity, :content_type => content
-			return Abiquo::Rack.new(resp)
-		rescue RestClient::Conflict
-			$log.info "Requested rack already exists."
-			return Abiquo::Rack.get_by_name(@racks, name)
-		end
 	end
 end

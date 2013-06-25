@@ -18,131 +18,12 @@ class Abiquo
 	#
 	# 
 	# 
-	def initialize(server,username,password)
-		@@server = server
+	def initialize(apiurl,username,password)
+		@@apiurl = apiurl
 		@@username = username
 		@@password = password
-		@admin_api = "http://#{server}/api/admin"
-	end
-
-	def create_datacenter(name, uuid, location, rs={})
-		url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters"
-		builder = Builder::XmlMarkup.new
-
-		if rs.length == 1 
-			ip, port = rs[:all].split(':')
-			entity = builder.datacenter do |dc|
-				dc.uuid(uuid)
-				dc.name(name)
-				dc.location(location)
-				dc.remoteServices {
-					dc.totalSize(7)
-					dc.remoteService {
-						dc.type("VIRTUAL_FACTORY")
-						dc.uri("http://#{ip}:#{port}/virtualfactory")
-						dc.status(0)
-					}
-					dc.remoteService {
-						dc.type("VIRTUAL_SYSTEM_MONITOR")
-						dc.uri("http://#{ip}:#{port}/vsm")
-						dc.status(0)
-					}
-					dc.remoteService {
-						dc.type("APPLIANCE_MANAGER")
-						dc.uri("http://#{ip}:#{port}/am")
-						dc.status(0)
-					}
-					dc.remoteService {
-						dc.type("NODE_COLLECTOR")
-						dc.uri("http://#{ip}:#{port}/nodecollector")
-						dc.status(0)
-					}
-					dc.remoteService {
-						dc.type("STORAGE_SYSTEM_MONITOR")
-						dc.uri("http://#{ip}:#{port}/ssm")
-						dc.status(0)
-					}
-					dc.remoteService {
-						dc.type("BPM_SERVICE")
-						dc.uri("http://#{ip}:#{port}/bpm-async")
-						dc.status(0)
-					}
-					dc.remoteService {
-						dc.type("DHCP_SERVICE")
-						dc.uri("http://#{ip}:7911")
-						dc.status(0)
-					}
-				}
-			end
-		elsif rs.length == 7
-			entity = builder.datacenter do |dc|
-				dc.uuid(uuid)
-				dc.name(name)
-				dc.location(location)
-				dc.remoteServices { 
-					dc.totalSize(7)
-					dc.remoteService { 
-						dc.type("VIRTUAL_FACTORY")
-						dc.uri("http://#{rs[:vf]}/virtualfactory")
-						dc.status(0)
-					}
-					dc.remoteService { 
-						dc.type("VIRTUAL_FACTORY")
-						dc.uri("http://#{rs[:vsm]}/vsm")
-						dc.status(0)
-					}
-					dc.remoteService { 
-						dc.type("VIRTUAL_FACTORY")
-						dc.uri("http://#{rs[:am]}/am")
-						dc.status(0)
-					}
-					dc.remoteService { 
-						dc.type("VIRTUAL_FACTORY")
-						dc.uri("http://#{rs[:nc]}/nodecollector")
-						dc.status(0)
-					}
-					dc.remoteService { 
-						dc.type("VIRTUAL_FACTORY")
-						dc.uri("http://#{rs[:ssm]}/ssm")
-						dc.status(0)
-					}
-					dc.remoteService { 
-						dc.type("BPM-ASYNC")
-						dc.uri("http://#{rs[:bpm]}/bpm-async")
-						dc.status(0)
-					}
-					dc.remoteService { 
-						dc.type("DHCP")
-						dc.uri("http://#{rs[:dhcp]}:7911")
-						dc.status(0)
-					}
-				}
-			end
-		end
-
-		begin 
-			response = RestClient.post url, entity, :content_type => 'application/vnd.abiquo.datacenter+xml'
-
-			if response.code == 201 # Resource created ok
-				xml = XmlSimple.xml_in(response)
-				$log.debug xml
-				return Abiquo::Datacenter.new(xml)
-			end
-		rescue RestClient::Conflict
-			$log.info "Requested datacenter already exists."
-			return Abiquo::Datacenter.get_by_uuid(uuid)
-		end
-	end
-
-	def get_datacenters()
-		retdcs = Hash.new()
-		dcsxml = RestClient::Request.new(:method => :get, :url => "#{@admin_api}/datacenters", :user => @@username, :password => @@password).execute
-		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
-		d.each do |dc|
-			retdcs[dc.at('name').to_str] = Abiquo::Datacenter.new(dc.to_xml)
-		end
-
-		return retdcs
+		@@admin_api = "#{apiurl}/admin"
+		@@cloud_api = "#{apiurl}/cloud"
 	end
 
 	def create_virtualdatacenter(	enterpriselink, iddatacenter )
@@ -261,30 +142,6 @@ class Abiquo
 			if vdc["id"][0] == id
 				$log.debug "Found VDC #{vdc['id']}"
 				return vdc
-			end
-		}
-
-	return nil
-	end
-
-	def list_datacenters()
-		url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters"
-		xml = self._httpget url
-		dcs = []
-		xml['datacenter'].each { |dc|
-			dcs << dc["id"][0]
-		}
-		return dcs
-	end
-
-	def get_dc_by_id(id)
-		url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters"
-		xml = self._httpget url
-
-		xml['datacenter'].each { |dc|
-			if dc["id"][0] == id
-				$log.debug "Found DC #{dc['id']}"
-				return dc
 			end
 		}
 
