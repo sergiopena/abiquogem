@@ -40,14 +40,10 @@ class Abiquo::Datacenter < Abiquo
 	end
 
 	def self.get_by_id(id)
-		url = "#{@@admin_api}#{@@resource_url}"
+		url = "#{@@admin_api}#{@@resource_url}/#{id}"
 		dcsxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
-		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
-		d.each do |dc|
-			if dc.at('id').to_str == id.to_s 
-				return Abiquo::Datacenter.new(dc.to_xml)
-			end
-		end
+		d = Nokogiri::XML.parse(dcsxml).xpath('/datacenter')
+		return Abiquo::Datacenter.new(d.to_xml)
 	end
 
 	def self.get_by_uuid(uuid)
@@ -174,8 +170,12 @@ class Abiquo::Datacenter < Abiquo
 			return Abiquo::Datacenter.new(resp)
 		rescue => e
 			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
-			errormsg.each do |error|
-				raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+			if not errormsg.nil? then
+				errormsg.each do |error|
+					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+				end
+			else
+				raise e.message
 			end
 		end
 	end
@@ -200,10 +200,14 @@ class Abiquo::Datacenter < Abiquo
 			resour = RestClient::Resource.new("#{url}", :user => @@username, :password => @@password)
 			resp = resour.put entity, :content_type => content
 			return Abiquo::Datacenter.new(resp)
-		rescue
+		rescue => e
 			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
-			errormsg.each do |error|
-				raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+			if not errormsg.nil? then
+				errormsg.each do |error|
+					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+				end
+			else
+				raise e.message
 			end
 		end
 	end
@@ -221,10 +225,14 @@ class Abiquo::Datacenter < Abiquo
 					content = 'application/vnd.abiquo.remoteservice+xml'
 					resour = RestClient::Resource.new("#{url}", :user => @@username, :password => @@password)
 					resp = resour.put rs.to_xml, :content_type => content
-				rescue RestClient::Conflict => e
+				rescue => e
 					errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
-					errormsg.each do |error|
-						raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+					if not errormsg.nil? then
+						errormsg.each do |error|
+							raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+						end
+					else
+						raise e.message
 					end
 				end
 			end

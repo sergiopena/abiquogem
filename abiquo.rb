@@ -162,12 +162,13 @@ class Abiquo
 	end
 end
 
+require 'lib/datacenter'
+require 'lib/rack'
+require 'lib/machine'
+require 'lib/device'
 #require 'lib/enterprise'
 require 'lib/virtualdatacenter'
 require 'lib/virtualappliance'
 require 'lib/virtualmachine'
-require 'lib/datacenter'
-require 'lib/rack'
-require 'lib/machine'
 #require 'lib/roles'
-# require 'lib/user'
+#require 'lib/user'

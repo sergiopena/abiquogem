@@ -74,7 +74,7 @@ class Abiquo::Rack < Abiquo
   			$log.info "URL : #{racksurl.to_str}"
 			rackxml = RestClient::Request.new(:method => :get, :url => racksurl, :user => @@username, :password => @@password).execute
   			Nokogiri::XML.parse(rackxml).xpath('//racks/rack').each do |rack|
-				if rack.at('id').to_str == rack_name
+				if rack.at('id').to_str == id
 					return Abiquo::Rack.new(rack.to_xml)
 				end
 			end
@@ -98,10 +98,14 @@ class Abiquo::Rack < Abiquo
 			resour = RestClient::Resource.new(dc.racks, :user => @@username, :password => @@password)
 			resp = resour.post entity, :content_type => content
 			return Abiquo::Rack.new(resp)
-		rescue RestClient::Conflict
+		rescue => e
 			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
-			errormsg.each do |error|
-				raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+			if not errormsg.nil? then
+				errormsg.each do |error|
+					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+				end
+			else
+				raise e.message
 			end
 		end
 	end
@@ -125,10 +129,14 @@ class Abiquo::Rack < Abiquo
 			resour = RestClient::Resource.new(@url, :user => @@username, :password => @@password)
 			resp = resour.put entity, :content_type => content
 			return Abiquo::Rack.new(resp)
-		rescue RestClient::Conflict
+		rescue => e
 			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
-			errormsg.each do |error|
-				raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+			if not errormsg.nil? then
+				errormsg.each do |error|
+					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+				end
+			else
+				raise e.message
 			end
 		end
 	end
@@ -140,12 +148,6 @@ class Abiquo::Rack < Abiquo
 			gotMachines << Abiquo::Machine.new(machine.to_xml)
 		end
 		return gotMachines
-	end
-
-	def get_machine_by_id(id)
-		url = "#{@machines}/#{id}"
-		machinexml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
-		return Abiquo::Machine.new(machinexml)
 	end
 
 	def delete()

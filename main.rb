@@ -112,19 +112,19 @@ abq = Abiquo.new(AbiServer,AbiUser,AbiPass)
 #end
 
 # Test edit rack
-begin
-	racktest = Abiquo::Rack.get_by_id(18)
-	$log.info "Rack ID #{racktest.id} with name #{racktest.name} retrieved."
-
-	racktest.name = "Nuevo Rack"
-	racktest.vlansIdAvoided = "78,89,100-150"
-	racktest = racktest.update_standard()
-	$log.info "Rack ID #{racktest.id} with name #{racktest.name} updated."
-rescue => e
-	$log.info "Could not edit rack"
-	$log.debug "#{e.message}"
-	exit 1
-end
+#begin
+#	racktest = Abiquo::Rack.get_by_id(18)
+#	$log.info "Rack ID #{racktest.id} with name #{racktest.name} retrieved."
+#
+#	racktest.name = "Nuevo Rack"
+#	racktest.vlansIdAvoided = "78,89,100-150"
+#	racktest = racktest.update_standard()
+#	$log.info "Rack ID #{racktest.id} with name #{racktest.name} updated."
+#rescue => e
+#	$log.info "Could not edit rack"
+#	$log.debug "#{e.message}"
+#	exit 1
+#end
 
 # Delete Rack Test
 #racktest.delete
@@ -142,4 +142,9 @@ end
 #rack = dc.get_rack_by_name("RACK mock")
 #m = rack.add_physicalmachine(:ip => '192.168.2.56', :user => 'root', :password => 'temporal', :name => 'PROVA-API', :datastore => "datastore1", :vswitch => "vSwitch1")
 
+# Test add storage device
+dc = Abiquo::Datacenter.get_by_id(18)
+#stdev = Abiquo::StorageDev.create(dc, :name => 'Test - Script',:technology => 'LVM',:mgmt => '10.60.13.56:80',:iscsi => '10.60.13.56:3260')
+stdev = Abiquo::StorageDev.get_by_id(2)
+$log.info "Storage device #{stdev.name} (#{stdev.managementip}) added successfully."
 

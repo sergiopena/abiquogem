@@ -165,8 +165,12 @@ class Abiquo::Machine < Abiquo
 			return Abiquo::Machine.new(resp)
 		rescue => e
 			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
-			errormsg.each do |error|
-				raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+			if not errormsg.nil? then
+				errormsg.each do |error|
+					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+				end
+			else
+				raise e.message
 			end
 		end
 	end
@@ -188,15 +192,26 @@ class Abiquo::Machine < Abiquo
 			resour = RestClient::Resource.new("#{@url}", :user => @@username, :password => @@password)
 			resp = resour.put "#{machine.xpath('/machine').to_xml}", :content_type => content
 			return Abiquo::Machine.new(resp)
-		rescue RestClient::Conflict
-			return nil
-		rescue RestClient::Forbidden
-			return nil
+		rescue => e
+			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
+			if not errormsg.nil? then
+				errormsg.each do |error|
+					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+				end
+			else
+				raise e.message
+			end
 		end
 	end
 
 	def checkstate()
 		req = RestClient::Request.new(:method => :get, :url => @checkstate, :user => @@username, :password => @@password)
 		response = req.execute
+	end
+
+	def get_rack()
+		req = RestClient::Request.new(:method => :get, :url => @rack, :user => @@username, :password => @@password)
+		response = req.execute
+		return Abiquo::Rack.new(response)
 	end
 end
