@@ -144,7 +144,14 @@ abq = Abiquo.new(AbiServer,AbiUser,AbiPass)
 
 # Test add storage device
 dc = Abiquo::Datacenter.get_by_id(18)
-stdev = Abiquo::StorageDev.create(dc, :name => 'Test - Script',:technology => 'LVM',:mgmt => '10.60.13.56:8180',:iscsi => '10.60.13.56:3260')
-#stdev = Abiquo::StorageDev.get_by_id(2)
-$log.info "Storage device #{stdev.name} (#{stdev.managementip}) added successfully."
 
+begin
+	#stdev = Abiquo::StorageDev.create(dc, :name => 'Test - Script',:technology => 'LVM',:mgmt => '10.60.13.56:8180',:iscsi => '10.60.13.56:3260')
+	stdev = Abiquo::StorageDev.create(dc, :name => 'NetApp QA',:technology => 'NETAPP',:mgmt => '10.60.11.7:80',:iscsi => '10.60.11.7:3260',:username => 'root',:password => 'temporal')
+	$log.info "Storage device #{stdev.name} (#{stdev.managementip}) added successfully."
+	pool = stdev.add_pool(:pool => 'aggr1',:tier => "Default Tier 2")
+	$log.info "Storage pool #{pool[:name]} added to device #{stdev.name} (#{stdev.managementip})."
+rescue => e
+	$log.info "Could not add pool."
+	puts e.inspect
+end
