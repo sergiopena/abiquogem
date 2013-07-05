@@ -6,7 +6,7 @@ class Abiquo::Rack < Abiquo
 	attr_accessor :url
 	attr_accessor :datacenter
 	attr_accessor :machines
-	attr_accessor :id
+	attr_accessor :rackid
 	attr_accessor :haEnabled
 	attr_accessor :longDescription
 	attr_accessor :name
@@ -23,7 +23,7 @@ class Abiquo::Rack < Abiquo
   		@url = r.xpath('//link[@rel="edit"]').attribute('href').to_str
   		@datacenter = r.xpath('//link[@rel="datacenter"]').attribute('href').to_str
   		@machines = r.xpath('//link[@rel="machines"]').attribute('href').to_str
-  		@id = r.at('/rack/id').to_str
+  		@rackid = r.at('/rack/id').to_str
 		@haEnabled = r.at('/rack/haEnabled').to_str
 		r.at('/rack/longDescription').nil? ? @longDescription = "" : @longDescription = r.at('/rack/longDescription').to_str
 		@name = r.at('/rack/name').to_str
@@ -40,12 +40,10 @@ class Abiquo::Rack < Abiquo
 		dcurl = "#{@@admin_api}/datacenters"
   		dcxml = RestClient::Request.new(:method => :get, :url => dcurl, :user => @@username, :password => @@password, :headers => { 'accept' => 'application/vnd.abiquo.datacenters+xml'}).execute
   		Nokogiri::XML.parse(rackxml).xpath('//datacenters/datacenter').each do |dc|
-  			racksurl = dc.xpath('./link[@rel="racks"]')
+  			racksurl = dc.xpath('./link[@rel="racks"]').attribute('href').to_str
 			rackxml = RestClient::Request.new(:method => :get, :url => racksurl, :user => @@username, :password => @@password).execute
   			Nokogiri::XML.parse(rackxml).xpath('//racks/rack').each do |rack|
-				if rack.at('name').to_str == rack_name
-					racks << Abiquo::Rack.new(rack.to_xml)
-				end
+				racks << Abiquo::Rack.new(rack.to_xml)
 			end
 		end
 		return racks
@@ -54,8 +52,8 @@ class Abiquo::Rack < Abiquo
   	def self.get_by_name(rack_name)
   		dcurl = "#{@@admin_api}/datacenters"
   		dcxml = RestClient::Request.new(:method => :get, :url => dcurl, :user => @@username, :password => @@password, :headers => { 'accept' => 'application/vnd.abiquo.datacenters+xml'}).execute
-  		Nokogiri::XML.parse(rackxml).xpath('//datacenters/datacenter').each do |dc|
-  			racksurl = dc.xpath('./link[@rel="racks"]')
+  		Nokogiri::XML.parse(dcxml).xpath('//datacenters/datacenter').each do |dc|
+  			racksurl = dc.xpath('./link[@rel="racks"]').attribute('href').to_str
 			rackxml = RestClient::Request.new(:method => :get, :url => racksurl, :user => @@username, :password => @@password).execute
   			Nokogiri::XML.parse(rackxml).xpath('//racks/rack').each do |rack|
 				if rack.at('name').to_str == rack_name
@@ -63,22 +61,22 @@ class Abiquo::Rack < Abiquo
 				end
 			end
 		end
+		return nil
   	end
 
   	def self.get_by_id(id)
 		dcurl = "#{@@admin_api}/datacenters"
   		dcxml = RestClient::Request.new(:method => :get, :url => dcurl, :user => @@username, :password => @@password, :headers => { 'accept' => 'application/vnd.abiquo.datacenters+xml'}).execute
   		Nokogiri::XML.parse(dcxml).xpath('//datacenters/datacenter').each do |dc|
-  			$log.info "DC : dc.to_xml"
-  			racksurl = dc.xpath('./link[@rel="racks"]')
-  			$log.info "URL : #{racksurl.to_str}"
+  			racksurl = dc.xpath('./link[@rel="racks"]').attribute('href').to_str
 			rackxml = RestClient::Request.new(:method => :get, :url => racksurl, :user => @@username, :password => @@password).execute
-  			Nokogiri::XML.parse(rackxml).xpath('//racks/rack').each do |rack|
-				if rack.at('id').to_str == id
+  			Nokogiri::XML.parse(rackxml).xpath('/racks/rack').each do |rack|
+				if rack.at('id').to_str == id.to_s
 					return Abiquo::Rack.new(rack.to_xml)
 				end
 			end
 		end
+		return nil
 	end
 
 	def self.create_standard(dc, name, desc, ha, vlanmin, vlanmax, vlanavoid)

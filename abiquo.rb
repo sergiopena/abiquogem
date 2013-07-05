@@ -14,7 +14,9 @@ require 'builder'
 require 'rest_client'
 
 class Abiquo
-	attr_accessor :admin_api
+	attr_reader :admin_api
+	attr_reader :cloud_api
+	attr_reader :apiversion
 	#
 	# 
 	# 
@@ -24,8 +26,68 @@ class Abiquo
 		@@password = password
 		@@admin_api = "#{apiurl}/admin"
 		@@cloud_api = "#{apiurl}/cloud"
+
+		@@apiversion = RestClient::Request.new(:method => :get, :url => "#{apiurl}/version", :user => username, :password => password).execute.to_s
 	end
 
+	def self.get(resource, headers={})
+		if headers.nil? then
+			res = RestClient::Resource.new(resource, @@username, @@password)
+			response = res.get
+		else
+			res = RestClient::Resource.new(resource, @@username, @@password)
+			response = res.get(headers)
+		end
+		
+		if response.code == 200 then
+			return response.body
+		else
+			return nil
+		end
+	end
+
+	def self.post(resource, data, headers={})
+		begin 
+			resource = RestClient::Resource.new(resource, :user => @@username, :password => @@password)
+			if headers.nil? then
+				response = resour.post(entity)
+			else
+				response = resour.post(entity, headers)
+			end
+			if response.code == 200 then
+				return response.body
+			else
+				return nil
+			end
+		rescue RestClient::ConflictException => conflict
+			errormsg = Nokogiri::XML.parse(conflict.response).xpath('//errors/error')
+			if not errormsg.nil? then
+				errormsg.each do |error|
+					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+				end
+			else
+				raise e.message
+			end
+		end
+	end
+
+	def self.delete(resource)
+		begin
+			resource = RestClient::Resource.new(resource, :user => @@username, :password => @@password)
+			response = resource.delete()
+		rescue RestClient::ConflictException => conflict
+			errormsg = Nokogiri::XML.parse(conflict.response).xpath('//errors/error')
+			if not errormsg.nil? then
+				errormsg.each do |error|
+					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+				end
+			else
+				raise e.message
+			end
+		end
+	end
+
+=begin
 	def create_virtualdatacenter(	enterpriselink, iddatacenter )
 		$log.info "Instanciated virtualdatacenter for enterprise #{enterpriselink}"
 
@@ -160,6 +222,7 @@ class Abiquo
 		vms = _httpget(url)
 		$log.info "VMs count: #{vms.length}"
 	end
+=end
 end
 
 require 'lib/datacenter'

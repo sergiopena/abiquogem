@@ -34,7 +34,8 @@ require 'uri'
 # Configuration options
 #########################################################
 #AbiServer = '192.168.1.156'
-AbiServer = 'http://10.60.13.21/api'
+AbiServer = 'http://10.60.13.21/api' # 2.4
+#AbiServer = 'http://192.168.2.211/api' #2 .6
 AbiUser = 'admin'
 AbiPass = 'xabiquo'
 IdDatacenter = 1
@@ -49,35 +50,34 @@ $log.level = Logger::DEBUG
 abq = Abiquo.new(AbiServer,AbiUser,AbiPass)
 
 # List datacenters
-#begin
-#	dcs = Abiquo::Datacenter.list_all
-#	dcs.each do |dc|
-#		$log.info "Found DC : #{dc.name} (id : #{dc.id})"
-#	end
-#rescue => e
-#	$log.info "Error listing datacenters."
-#	$log.debug "Exception occurred : #{e.message}"
-#	exit 1
-#end
+begin
+	dcs = Abiquo::Datacenter.list_all
+	dcs.each do |dc|
+		$log.info "Found DC : #{dc.name} (id : #{dc.datacenterid})"
+	end
+rescue => e
+	$log.info "Error listing datacenters."
+	$log.debug "Exception occurred : #{e.message}"
+	exit 1
+end
 
 # Test create Datacenter
-#uri = URI(AbiServer)
-#begin
-#	dct = Abiquo::Datacenter.create("Datacenter", "Abiquo", "Support rulez!", :all => "#{uri.host}:80")
-#	$log.info "Datacenter '#{dct.name}' created with id '#{dct.id}' and uuid '#{dct.uuid}'"
-#rescue => e
-#	$log.info "Error creating datacenters."
-#	$log.debug "Exception occurred : #{e.message}"
-#	exit 1
-#end
+uri = URI(AbiServer)
+begin
+	dct = Abiquo::Datacenter.create("Cassiopea", "Abiquo", "Support rulez!", :all => "#{uri.host}:80")
+	$log.info "Datacenter '#{dct.name}' created with id '#{dct.datacenterid}' and uuid '#{dct.uuid}'"
+rescue => e
+	$log.info "Error creating datacenters."
+	$log.debug "Exception occurred : #{e.message}"
+end
 
 # Test rename datacenter
 #dct.name = "Prueba changed"
 #begin
 #	dct = dct.update
-#	$log.info "Datacenter Id #{dct.id} renombrado a #{dct.name}"
+#	$log.info "Datacenter Id #{dct.datacenterid} renombrado a #{dct.name}"
 #rescue Exception => e
-#	$log.info "Datacenter #{dct.name} (id : #{dct.id}) cannot be updated. Check Abiquo logs."
+#	$log.info "Datacenter #{dct.name} (id : #{dct.datacenterid}) cannot be updated. Check Abiquo logs."
 #	$log.debug "Exception occurred : #{e.message}"
 #	exit 1
 #end
@@ -85,16 +85,16 @@ abq = Abiquo.new(AbiServer,AbiUser,AbiPass)
 # Test update remote service
 #begin
 #	dct.update_remote_service('VIRTUAL_SYSTEM_MONITOR', 'http://10.10.10.10:80/vsm')
-#	$log.info "Datacenter Id #{dct.id} changed VSM uri"
+#	$log.info "Datacenter Id #{dct.datacenterid} changed VSM uri"
 #rescue Exception => e
-#	$log.info "Datacenter #{dct.name} (id : #{dct.id}) cannot be updated. Check Abiquo logs."
+#	$log.info "Datacenter #{dct.name} (id : #{dct.datacenterid}) cannot be updated. Check Abiquo logs."
 #	$log.debug "Exception occurred : #{e.message}"
 #end
 
 # Test create Rack
 #begin
 #	racktest = Abiquo::Rack.create_standard(dct, "RackTest", "A test", false, 2, 4096, "")
-#	$log.info "Rack #{racktest.name} created with id #{racktest.id}"
+#	$log.info "Rack #{racktest.name} created with id #{racktest.rackid}"
 #rescue => e
 #	$log.info "Could not create rack in DC #{dct.name}"
 #	$log.debug "#{e.message}"
@@ -102,11 +102,26 @@ abq = Abiquo.new(AbiServer,AbiUser,AbiPass)
 #end
 
 # Test add PM
+#idr = 19
+#rname = "RackTest"
+#racktest = Abiquo::Rack.get_by_id(idr)
+#if not racktest.nil? then 
+#	$log.info "racktest by id is : ID #{racktest.rackid} and name #{racktest.name}"
+#else
+#	$log.info "Rack with id #{idr} not found."
+#end
+#racktest = Abiquo::Rack.get_by_name(rname)
+#if not racktest.nil? then 
+#	$log.info "racktest by name is : ID #{racktest.rackid} and name #{racktest.name}"
+#else
+#	$log.info "Rack with name #{rname} not found."
+#end
+#
 #begin
-#	m = Abiquo::Machine.add_machine(racktest, :ip => '10.60.13.44', :user => 'root', :password => 'temporal', :name => 'PROVA-API', :datastore => "/", :vswitch => "eth0")
+#	m = Abiquo::Machine.add_machine(racktest, :ip => '192.168.2.51', :type => "VMX_04", :user => 'root', :password => 'temporal', :name => 'PROVA-API', :datastore => "/", :vswitch => "eth0")
 #	$log.info "Added physicalmachine #{m.name} (#{m.ip} #{m.type}) to rack #{racktest.name}"
 #rescue => e
-#	$log.info "Could not add machine to rack #{racktest.name} in DC #{dct.name}"
+#	$log.info "Could not add machine to rack #{racktest.name}"
 #	$log.debug "#{e.message}"
 #	exit 1
 #end
@@ -114,12 +129,12 @@ abq = Abiquo.new(AbiServer,AbiUser,AbiPass)
 # Test edit rack
 #begin
 #	racktest = Abiquo::Rack.get_by_id(18)
-#	$log.info "Rack ID #{racktest.id} with name #{racktest.name} retrieved."
+#	$log.info "Rack ID #{racktest.rackid} with name #{racktest.name} retrieved."
 #
 #	racktest.name = "Nuevo Rack"
 #	racktest.vlansIdAvoided = "78,89,100-150"
 #	racktest = racktest.update_standard()
-#	$log.info "Rack ID #{racktest.id} with name #{racktest.name} updated."
+#	$log.info "Rack ID #{racktest.rackid} with name #{racktest.name} updated."
 #rescue => e
 #	$log.info "Could not edit rack"
 #	$log.debug "#{e.message}"
@@ -130,28 +145,36 @@ abq = Abiquo.new(AbiServer,AbiUser,AbiPass)
 #racktest.delete
 
 # Delete Datacenter test
-#begin
-#	dct.delete
-#	$log.info "Datacenter #{dct.name} (id : #{dct.id}) has been deleted."
-#rescue Exception => e
-#	$log.info "Datacenter #{dct.name} (id : #{dct.id}) cannot be removed. Check Abiquo logs."
-#	$log.debug "Exception occurred : #{e.message}"
-#end
+begin
+	dct.delete
+	$log.info "Datacenter #{dct.name} (id : #{dct.datacenterid}) has been deleted."
+rescue Exception => e
+	$log.info "Datacenter #{dct.name} (id : #{dct.datacenterid}) cannot be removed. Check Abiquo logs."
+	$log.debug "Exception occurred : #{e.message}"
+end
 
 #dc = Abiquo::Datacenter.get_by_name("BCN")
 #rack = dc.get_rack_by_name("RACK mock")
 #m = rack.add_physicalmachine(:ip => '192.168.2.56', :user => 'root', :password => 'temporal', :name => 'PROVA-API', :datastore => "datastore1", :vswitch => "vSwitch1")
 
 # Test add storage device
-dc = Abiquo::Datacenter.get_by_id(18)
-
-begin
-	#stdev = Abiquo::StorageDev.create(dc, :name => 'Test - Script',:technology => 'LVM',:mgmt => '10.60.13.56:8180',:iscsi => '10.60.13.56:3260')
-	stdev = Abiquo::StorageDev.create(dc, :name => 'NetApp QA',:technology => 'NETAPP',:mgmt => '10.60.11.7:80',:iscsi => '10.60.11.7:3260',:username => 'root',:password => 'temporal')
-	$log.info "Storage device #{stdev.name} (#{stdev.managementip}) added successfully."
-	pool = stdev.add_pool(:pool => 'aggr1',:tier => "Default Tier 2")
-	$log.info "Storage pool #{pool[:name]} added to device #{stdev.name} (#{stdev.managementip})."
-rescue => e
-	$log.info "Could not add pool."
-	puts e.inspect
-end
+#begin
+#	dct = Abiquo::Datacenter.get_by_name("Cassiopea")
+#	if not dct.nil? then
+#		stdev = Abiquo::StorageDev.create(dct, :name => 'Test - Script',:technology => 'LVM',:mgmt => '10.60.13.31:8180',:iscsi => '10.60.13.31:3260')
+#		#stdev = Abiquo::StorageDev.create(dct, :name => 'NetApp QA',:technology => 'NETAPP',:mgmt => '10.60.11.7:80',:iscsi => '10.60.11.7:3260',:username => 'root',:password => 'temporal')
+#		$log.info "Storage device #{stdev.name} (#{stdev.managementip}) added successfully."
+#		pool = stdev.add_pool(:pool => 'VolGroup00',:tier => "Default Tier 1")
+#		#pool = stdev.add_pool(:pool => 'aggr1',:tier => "Default Tier 2") 
+#		if pool.nil? then
+#			$log.info "Storage pool could not be added."
+#		else
+#			$log.info "Storage pool #{pool[:name]} added to device #{stdev.name} (#{stdev.managementip})."
+#		end
+#	else
+#		$log.info "DC not found."
+#	end
+#rescue => e
+#	$log.info "Could not add pool."
+#	puts e.inspect
+#end

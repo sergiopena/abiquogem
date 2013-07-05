@@ -4,7 +4,7 @@ require 'nokogiri'
 class Abiquo::Datacenter < Abiquo
 	attr_accessor :xml
 	attr_accessor :url
-	attr_accessor :id
+	attr_accessor :datacenterid
 	attr_accessor :location
 	attr_accessor :name
 	attr_accessor :uuid
@@ -22,7 +22,7 @@ class Abiquo::Datacenter < Abiquo
 		@storagedevs = d.xpath('//link[@rel="devices"]').attribute('href').to_str
 		@racks = d.xpath('//link[@rel="racks"]').attribute('href').to_str
 		@rs = d.xpath('//link[@rel="remoteservices"]').attribute('href').to_str
-		@id = d.at('/datacenter/id').to_str
+		@datacenterid = d.at('/datacenter/id').to_str
 		@location = d.at('/datacenter/location').to_str
 		@name = d.at('/datacenter/name').to_str
 		@uuid = d.at('/datacenter/uuid').to_str
@@ -30,7 +30,7 @@ class Abiquo::Datacenter < Abiquo
 
 	def self.list_all()
 		url = "#{@@admin_api}#{@@resource_url}"
-		dcsxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password, :headers => { 'accept' => @@accept_header}).execute
+		dcsxml = get(url, { 'Accept' => @@accept_header })
 		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
 		dcs = Array.new
 		d.each do |dc|
@@ -41,14 +41,14 @@ class Abiquo::Datacenter < Abiquo
 
 	def self.get_by_id(id)
 		url = "#{@@admin_api}#{@@resource_url}/#{id}"
-		dcsxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
+		dcsxml = get(url)
 		d = Nokogiri::XML.parse(dcsxml).xpath('/datacenter')
 		return Abiquo::Datacenter.new(d.to_xml)
 	end
 
 	def self.get_by_uuid(uuid)
 		url = "#{@@admin_api}#{@@resource_url}"
-		dcsxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
+		dcsxml = get(url, { 'Accept' => @@accept_header })
 		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
 		d.each do |dc|
 			if dc.at('uuid').to_str == uuid.to_s 
@@ -59,7 +59,7 @@ class Abiquo::Datacenter < Abiquo
 
 	def self.get_by_name(name)
 		url = "#{@@admin_api}#{@@resource_url}"
-		dcsxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
+		dcsxml = get(url, { 'Accept' => @@accept_header })
 		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
 		d.each do |dc|
 			if dc.at('name').to_str == name.to_s 
@@ -164,11 +164,13 @@ class Abiquo::Datacenter < Abiquo
 		end
 
 		begin 
-			content = 'application/vnd.abiquo.datacenter+xml'
-			resour = RestClient::Resource.new("#{url}", :user => @@username, :password => @@password)
-			resp = resour.post entity, :content_type => content
+			#content = 'application/vnd.abiquo.datacenter+xml'
+			#resour = RestClient::Resource.new("#{url}", :user => @@username, :password => @@password)
+			#resp = resour.post entity, :content_type => content
+			#return Abiquo::Datacenter.new(resp)
+			resp = post(url, entity, { 'Content-Type' => 'application/vnd.abiquo.datacenter+xml' })
 			return Abiquo::Datacenter.new(resp)
-		rescue => e
+		rescue RestClient::ConflictException => e
 			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
 			if not errormsg.nil? then
 				errormsg.each do |error|
@@ -181,8 +183,7 @@ class Abiquo::Datacenter < Abiquo
 	end
 
 	def delete()
-		req = RestClient::Request.new(:method => :delete, :url => @url, :user => @@username, :password => @@password)
-		response = req.execute
+		delete(url)
 	end
 
 	def update()
