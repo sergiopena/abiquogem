@@ -259,29 +259,30 @@ class Abiquo
 	return nil
 	end
 
-	def list_datacenters()
-		url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters"
-		xml = self._httpget url
-		dcs = []
-		xml['datacenter'].each { |dc|
-			dcs << dc["id"][0]
-		}
-		return dcs
-	end
+	# Methods moved to Datacenter class methods
+	# def list_datacenters()
+	# 	url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters"
+	# 	xml = self._httpget url
+	# 	dcs = []
+	# 	xml['datacenter'].each { |dc|
+	# 		dcs << dc["id"][0]
+	# 	}
+	# 	return dcs
+	# end
 
-	def get_dc_by_id(id)
-		url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters"
-		xml = self._httpget url
+	# def get_dc_by_id(id)
+	# 	url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters"
+	# 	xml = self._httpget url
 
-		xml['datacenter'].each { |dc|
-			if dc["id"][0] == id
-				$log.debug "Found DC #{dc['id']}"
-				return dc
-			end
-		}
+	# 	xml['datacenter'].each { |dc|
+	# 		if dc["id"][0] == id
+	# 			$log.debug "Found DC #{dc['id']}"
+	# 			return dc
+	# 		end
+	# 	}
 
-		return nil
-	end
+	# 	return nil
+	# end
 
 	def get_kvm_definition(vmID)
 		# call login to get the link to VMs
@@ -297,12 +298,12 @@ class Abiquo
 	end
 end
 
-#require 'lib/enterprise'
-require 'lib/virtualdatacenter'
-require 'lib/virtualappliance'
-require 'lib/virtualmachine'
-require 'lib/datacenter'
-require 'lib/rack'
-require 'lib/machine'
+require './lib/enterprise'
+require './lib/virtualdatacenter'
+require './lib/virtualappliance'
+require './lib/virtualmachine'
+require './lib/datacenter'
+require './lib/rack'
+require './lib/machine'
 #require 'lib/roles'
-# require 'lib/user'
+require './lib/user'

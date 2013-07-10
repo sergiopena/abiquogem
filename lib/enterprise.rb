@@ -53,6 +53,7 @@ class Abiquo::Enterprise < Abiquo
 		end
 	end
 
+	# Updated method to 2.4
 	def allow_datacenter(datacenter_id, cpuHard = 0, cpuSoft = 0, hdHard = 0, hdSoft = 0, publicIpsHard = 0, publicIpsSoft = 0, ramHard = 0, ramSoft = 0, storageHard = 0, storageSoft = 0, vlansHard = 0, vlansSoft = 0, repositoryHard = 0, repositorySoft = 0 )
 		builder = Builder::XmlMarkup.new()
 		entity = builder.limit do |x|
@@ -69,6 +70,7 @@ class Abiquo::Enterprise < Abiquo
 			x.vlansHard vlansSoft
 			x.repositoryHard repositoryHard
 			x.repositorySoft repositorySoft
+			x.link(:rel => "datacenter", :href => "http://#{@@server}/api/admin/datacenters/#{datacenter_id}") 
 		end
 		$log.debug "Entity: #{entity}"
 		url = @url+self.id+"/limits?datacenter=#{datacenter_id}"

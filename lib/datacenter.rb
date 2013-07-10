@@ -25,7 +25,21 @@ class Abiquo::Datacenter < Abiquo
 		@uuid = d.at('id').to_str
 	end
 
+	def self.list()
+		url = "http://#{@@server}/api/admin/datacenters"
+		dcsxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
+		p dcsxml
+		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
+		p d
+		dcs = []
+		d.each do |dc|
+			dcs << Abiquo::Datacenter.new(dc.to_xml) 
+		end	
+		return dcs
+	end
+
 	def self.get_by_id(id)
+	# Return Datacenter object feching it by Id
 		url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters"
 		dcsxml = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
 		d = Nokogiri::XML.parse(dcsxml).xpath('//datacenters/datacenter')
