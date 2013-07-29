@@ -1,0 +1,99 @@
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--
+
+    Methods
+
+  -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Methods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="rdoc-style.css" type="text/css" />
+  <base target="docwin" />
+</head>
+<body>
+<div id="index">
+  <h1 class="section-bar">Methods</h1>
+  <div id="index-entries">
+    <a href="classes/Abiquo.html#M000004">_getlinks (Abiquo)</a><br />
+    <a href="classes/Abiquo/API.html#M000072">_httpget (Abiquo::API)</a><br />
+    <a href="classes/Abiquo.html#M000003">_httpget (Abiquo)</a><br />
+    <a href="classes/Abiquo/API.html#M000073">_httppost (Abiquo::API)</a><br />
+    <a href="classes/Abiquo/Machine.html#M000054">add_machine (Abiquo::Machine)</a><br />
+    <a href="classes/Abiquo/Enterprise.html#M000022">allow_datacenter (Abiquo::Enterprise)</a><br />
+    <a href="classes/Abiquo/Enterprise.html#M000027">assign_ip (Abiquo::Enterprise)</a><br />
+    <a href="classes/Abiquo/VirtualDatacenter.html#M000047">attach_publicIP (Abiquo::VirtualDatacenter)</a><br />
+    <a href="classes/Abiquo/VirtualAppliance.html#M000064">check_task (Abiquo::VirtualAppliance)</a><br />
+    <a href="classes/Abiquo/Machine.html#M000057">checkstate (Abiquo::Machine)</a><br />
+    <a href="classes/Abiquo/VirtualDatacenter.html#M000046">create (Abiquo::VirtualDatacenter)</a><br />
+    <a href="classes/Abiquo/User.html#M000032">create (Abiquo::User)</a><br />
+    <a href="classes/Abiquo/Datacenter.html#M000038">create (Abiquo::Datacenter)</a><br />
+    <a href="classes/Abiquo/Enterprise.html#M000021">create (Abiquo::Enterprise)</a><br />
+    <a href="classes/Abiquo/Rack.html#M000014">create_standard (Abiquo::Rack)</a><br />
+    <a href="classes/Abiquo.html#M000002">create_virtualdatacenter (Abiquo)</a><br />
+    <a href="classes/Abiquo/VirtualAppliance.html#M000062">delete (Abiquo::VirtualAppliance)</a><br />
+    <a href="classes/Abiquo/Rack.html#M000018">delete (Abiquo::Rack)</a><br />
+    <a href="classes/Abiquo/Datacenter.html#M000039">delete (Abiquo::Datacenter)</a><br />
+    <a href="classes/Abiquo/Machine.html#M000055">delete (Abiquo::Machine)</a><br />
+    <a href="classes/Abiquo/Enterprise.html#M000029">get_active_enterprises (Abiquo::Enterprise)</a><br />
+    <a href="classes/Abiquo/Enterprise.html#M000030">get_all_enterprises (Abiquo::Enterprise)</a><br />
+    <a href="classes/Abiquo/Machine.html#M000051">get_by_id (Abiquo::Machine)</a><br />
+    <a href="classes/Abiquo/Rack.html#M000013">get_by_id (Abiquo::Rack)</a><br />
+    <a href="classes/Abiquo/Datacenter.html#M000035">get_by_id (Abiquo::Datacenter)</a><br />
+    <a href="classes/Abiquo/Machine.html#M000053">get_by_ip (Abiquo::Machine)</a><br />
+    <a href="classes/Abiquo/Rack.html#M000012">get_by_name (Abiquo::Rack)</a><br />
+    <a href="classes/Abiquo/Machine.html#M000052">get_by_name (Abiquo::Machine)</a><br />
+    <a href="classes/Abiquo/Datacenter.html#M000037">get_by_name (Abiquo::Datacenter)</a><br />
+    <a href="classes/Abiquo/Datacenter.html#M000036">get_by_uuid (Abiquo::Datacenter)</a><br />
+    <a href="classes/Abiquo/Rack.html#M000019">get_datacenter (Abiquo::Rack)</a><br />
+    <a href="classes/Abiquo.html#M000006">get_enteprise_by_id (Abiquo)</a><br />
+    <a href="classes/Abiquo/Enterprise.html#M000028">get_expired_enterprises (Abiquo::Enterprise)</a><br />
+    <a href="classes/Abiquo.html#M000009">get_kvm_definition (Abiquo)</a><br />
+    <a href="classes/Abiquo/Enterprise.html#M000023">get_link_by_id (Abiquo::Enterprise)</a><br />
+    <a href="classes/Abiquo/Roles.html#M000049">get_link_by_name (Abiquo::Roles)</a><br />
+    <a href="classes/Abiquo/Rack.html#M000017">get_machine_by_id (Abiquo::Rack)</a><br />
+    <a href="classes/Abiquo/Rack.html#M000016">get_machines (Abiquo::Rack)</a><br />
+    <a href="classes/Abiquo/Datacenter.html#M000042">get_racks (Abiquo::Datacenter)</a><br />
+    <a href="classes/Abiquo/VirtualAppliance.html#M000061">get_state (Abiquo::VirtualAppliance)</a><br />
+    <a href="classes/Abiquo/VirtualDatacenter.html#M000045">get_vapp_by_id (Abiquo::VirtualDatacenter)</a><br />
+    <a href="classes/Abiquo/Enterprise.html#M000024">get_vapps (Abiquo::Enterprise)</a><br />
+    <a href="classes/Abiquo.html#M000008">get_vdc_by_id (Abiquo)</a><br />
+    <a href="classes/Abiquo/VirtualMachine.html#M000068">get_vm_by_id (Abiquo::VirtualMachine)</a><br />
+    <a href="classes/Abiquo/VirtualAppliance.html#M000060">get_vm_by_id (Abiquo::VirtualAppliance)</a><br />
+    <a href="classes/Abiquo/VirtualMachine.html#M000069">get_vm_by_name (Abiquo::VirtualMachine)</a><br />
+    <a href="classes/Abiquo/VirtualMachine.html#M000070">get_xml (Abiquo::VirtualMachine)</a><br />
+    <a href="classes/Abiquo/Datacenter.html#M000034">list_all (Abiquo::Datacenter)</a><br />
+    <a href="classes/Abiquo/Rack.html#M000011">list_all (Abiquo::Rack)</a><br />
+    <a href="classes/Abiquo.html#M000005">list_enterprises (Abiquo)</a><br />
+    <a href="classes/Abiquo/VirtualDatacenter.html#M000044">list_vappliances (Abiquo::VirtualDatacenter)</a><br />
+    <a href="classes/Abiquo.html#M000007">list_virtualdatacenters (Abiquo)</a><br />
+    <a href="classes/Abiquo/VirtualAppliance.html#M000059">list_virtualmachines (Abiquo::VirtualAppliance)</a><br />
+    <a href="classes/Abiquo/VirtualDatacenter.html#M000043">new (Abiquo::VirtualDatacenter)</a><br />
+    <a href="classes/Abiquo/User.html#M000031">new (Abiquo::User)</a><br />
+    <a href="classes/Abiquo/Rack.html#M000010">new (Abiquo::Rack)</a><br />
+    <a href="classes/Abiquo/Machine.html#M000050">new (Abiquo::Machine)</a><br />
+    <a href="classes/Abiquo/VirtualAppliance.html#M000058">new (Abiquo::VirtualAppliance)</a><br />
+    <a href="classes/Abiquo/Datacenter.html#M000033">new (Abiquo::Datacenter)</a><br />
+    <a href="classes/Abiquo/Roles.html#M000048">new (Abiquo::Roles)</a><br />
+    <a href="classes/Abiquo/Enterprise.html#M000020">new (Abiquo::Enterprise)</a><br />
+    <a href="classes/Abiquo/API.html#M000071">new (Abiquo::API)</a><br />
+    <a href="classes/Abiquo/VirtualMachine.html#M000065">new (Abiquo::VirtualMachine)</a><br />
+    <a href="classes/Abiquo.html#M000001">new (Abiquo)</a><br />
+    <a href="classes/Abiquo/Enterprise.html#M000025">persist_enterprise (Abiquo::Enterprise)</a><br />
+    <a href="classes/Abiquo/VirtualMachine.html#M000067">poweroff (Abiquo::VirtualMachine)</a><br />
+    <a href="classes/Abiquo/VirtualMachine.html#M000066">poweron (Abiquo::VirtualMachine)</a><br />
+    <a href="classes/Abiquo/VirtualAppliance.html#M000063">undeploy (Abiquo::VirtualAppliance)</a><br />
+    <a href="classes/Abiquo/Machine.html#M000056">update (Abiquo::Machine)</a><br />
+    <a href="classes/Abiquo/Datacenter.html#M000040">update (Abiquo::Datacenter)</a><br />
+    <a href="classes/Abiquo/Datacenter.html#M000041">update_remote_service (Abiquo::Datacenter)</a><br />
+    <a href="classes/Abiquo/Rack.html#M000015">update_standard (Abiquo::Rack)</a><br />
+    <a href="classes/Abiquo/Enterprise.html#M000026">volatilize_enterprise (Abiquo::Enterprise)</a><br />
+  </div>
+</div>
+</body>
+</html>

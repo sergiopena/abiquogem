@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Abiquo</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Abiquo</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/abiquo_rb.html">
+                abiquo.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000004">_getlinks</a>&nbsp;&nbsp;
+      <a href="#M000003">_httpget</a>&nbsp;&nbsp;
+      <a href="#M000002">create_virtualdatacenter</a>&nbsp;&nbsp;
+      <a href="#M000006">get_enteprise_by_id</a>&nbsp;&nbsp;
+      <a href="#M000009">get_kvm_definition</a>&nbsp;&nbsp;
+      <a href="#M000008">get_vdc_by_id</a>&nbsp;&nbsp;
+      <a href="#M000005">list_enterprises</a>&nbsp;&nbsp;
+      <a href="#M000007">list_virtualdatacenters</a>&nbsp;&nbsp;
+      <a href="#M000001">new</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="Abiquo/API.html" class="link">Abiquo::API</a><br />
+Class <a href="Abiquo/Datacenter.html" class="link">Abiquo::Datacenter</a><br />
+Class <a href="Abiquo/Enterprise.html" class="link">Abiquo::Enterprise</a><br />
+Class <a href="Abiquo/Machine.html" class="link">Abiquo::Machine</a><br />
+Class <a href="Abiquo/Rack.html" class="link">Abiquo::Rack</a><br />
+Class <a href="Abiquo/Roles.html" class="link">Abiquo::Roles</a><br />
+Class <a href="Abiquo/User.html" class="link">Abiquo::User</a><br />
+Class <a href="Abiquo/VirtualAppliance.html" class="link">Abiquo::VirtualAppliance</a><br />
+Class <a href="Abiquo/VirtualDatacenter.html" class="link">Abiquo::VirtualDatacenter</a><br />
+Class <a href="Abiquo/VirtualMachine.html" class="link">Abiquo::VirtualMachine</a><br />
+
+    </div>
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">admin_api</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+          <a href="Abiquo.src/M000001.html" target="Code" class="method-signature"
+            onclick="popupCode('Abiquo.src/M000001.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(apiurl,username,password)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="Abiquo.src/M000004.html" target="Code" class="method-signature"
+            onclick="popupCode('Abiquo.src/M000004.html');return false;">
+          <span class="method-name">_getlinks</span><span class="method-args">(object, type)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="Abiquo.src/M000003.html" target="Code" class="method-signature"
+            onclick="popupCode('Abiquo.src/M000003.html');return false;">
+          <span class="method-name">_httpget</span><span class="method-args">(url)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Wrapper to the REST get operation
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="Abiquo.src/M000002.html" target="Code" class="method-signature"
+            onclick="popupCode('Abiquo.src/M000002.html');return false;">
+          <span class="method-name">create_virtualdatacenter</span><span class="method-args">( enterpriselink, iddatacenter )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="Abiquo.src/M000006.html" target="Code" class="method-signature"
+            onclick="popupCode('Abiquo.src/M000006.html');return false;">
+          <span class="method-name">get_enteprise_by_id</span><span class="method-args">(id)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="Abiquo.src/M000009.html" target="Code" class="method-signature"
+            onclick="popupCode('Abiquo.src/M000009.html');return false;">
+          <span class="method-name">get_kvm_definition</span><span class="method-args">(vmID)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="Abiquo.src/M000008.html" target="Code" class="method-signature"
+            onclick="popupCode('Abiquo.src/M000008.html');return false;">
+          <span class="method-name">get_vdc_by_id</span><span class="method-args">(id)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="Abiquo.src/M000005.html" target="Code" class="method-signature"
+            onclick="popupCode('Abiquo.src/M000005.html');return false;">
+          <span class="method-name">list_enterprises</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
+
+        <div class="method-heading">
+          <a href="Abiquo.src/M000007.html" target="Code" class="method-signature"
+            onclick="popupCode('Abiquo.src/M000007.html');return false;">
+          <span class="method-name">list_virtualdatacenters</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

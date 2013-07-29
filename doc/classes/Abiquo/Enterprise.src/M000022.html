@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>allow_datacenter (Abiquo::Enterprise)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/enterprise.rb, line 56</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">allow_datacenter</span>(<span class="ruby-identifier">datacenter_id</span>, <span class="ruby-identifier">cpuHard</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">cpuSoft</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">hdHard</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">hdSoft</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">publicIpsHard</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">publicIpsSoft</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">ramHard</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">ramSoft</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">storageHard</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">storageSoft</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">vlansHard</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">vlansSoft</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">repositoryHard</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">repositorySoft</span> = <span class="ruby-value">0</span> )
+                <span class="ruby-identifier">builder</span> = <span class="ruby-constant">Builder</span><span class="ruby-operator">::</span><span class="ruby-constant">XmlMarkup</span>.<span class="ruby-identifier">new</span>()
+                <span class="ruby-identifier">entity</span> = <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">limit</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">cpuHard</span> <span class="ruby-identifier">cpuHard</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">cpuSoft</span> <span class="ruby-identifier">cpuSoft</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">hdHard</span> <span class="ruby-identifier">hdHard</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">hdSoft</span> <span class="ruby-identifier">hdSoft</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">publicIpsHard</span> <span class="ruby-identifier">publicIpsHard</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">publicIpsSoft</span> <span class="ruby-identifier">publicIpsSoft</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">ramHard</span> <span class="ruby-identifier">ramHard</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">ramSoft</span> <span class="ruby-identifier">ramSoft</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">storageHard</span> <span class="ruby-identifier">storageHard</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">storageSoft</span> <span class="ruby-identifier">storageSoft</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">vlansHard</span> <span class="ruby-identifier">vlansSoft</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">repositoryHard</span> <span class="ruby-identifier">repositoryHard</span>
+                        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">repositorySoft</span> <span class="ruby-identifier">repositorySoft</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">$log</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Entity: #{entity}&quot;</span>
+                <span class="ruby-identifier">url</span> = <span class="ruby-ivar">@url</span><span class="ruby-operator">+</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span><span class="ruby-operator">+</span><span class="ruby-node">&quot;/limits?datacenter=#{datacenter_id}&quot;</span>
+                <span class="ruby-identifier">$log</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;url #{url}&quot;</span>
+                <span class="ruby-identifier">response</span> = <span class="ruby-constant">RestClient</span>.<span class="ruby-identifier">post</span>( <span class="ruby-identifier">url</span>, <span class="ruby-identifier">entity</span>, 
+                                <span class="ruby-identifier">:Accept</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;application/vnd.abiquo.limit+xml&quot;</span>, 
+                                <span class="ruby-identifier">:Content_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;application/vnd.abiquo.limit+xml&quot;</span>)
+
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">code</span> <span class="ruby-operator">==</span> <span class="ruby-value">201</span> <span class="ruby-comment cmt"># Resource created ok</span>
+                        <span class="ruby-identifier">xml</span> = <span class="ruby-constant">XmlSimple</span>.<span class="ruby-identifier">xml_in</span>(<span class="ruby-identifier">response</span>)
+                        <span class="ruby-identifier">$log</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Allow datacenter #{datacenter_id} to enterprise #{self.id}&quot;</span>
+                        <span class="ruby-identifier">$log</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">xml</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -14,129 +14,106 @@ require 'builder'
 require 'rest_client'
 
 class Abiquo
-
+	attr_reader :admin_api
+	attr_reader :cloud_api
+	attr_reader :apiversion
 	#
 	# 
 	# 
-	def initialize(server,username,password)
-		@@server = server
+	def initialize(apiurl,username,password)
+		@@apiurl = apiurl
 		@@username = username
 		@@password = password
+		@@admin_api = "#{apiurl}/admin"
+		@@cloud_api = "#{apiurl}/cloud"
+
+		@@apiversion = RestClient::Request.new(:method => :get, :url => "#{apiurl}/version", :user => username, :password => password).execute.to_s
 	end
 
-	def create_datacenter(name, uuid, location, rs={})
-		url = "http://#{@@username}:#{@@password}@#{@@server}/api/admin/datacenters"
-		builder = Builder::XmlMarkup.new
-		$log.debug "rs length = #{rs.length}"
-		if rs.length == 1 
-			$log.debug "RS: #{rs[:all]}"
-			ip, port = rs[:all].split(':')
-			entity = builder.datacenter do |dc|
-				dc.uuid(uuid)
-				dc.name(name)
-				dc.location(location)
-				dc.remoteServices {
-					dc.totalSize(7)
-					dc.remoteService {
-						dc.type("VIRTUAL_FACTORY")
-						dc.uri("http://#{ip}:#{port}/virtualfactory")
-						dc.status(0)
-					}
-					dc.remoteService {
-						dc.type("VIRTUAL_SYSTEM_MONITOR")
-						dc.uri("http://#{ip}:#{port}/vsm")
-						dc.status(0)
-					}
-					dc.remoteService {
-						dc.type("APPLIANCE_MANAGER")
-						dc.uri("http://#{ip}:#{port}/am")
-						dc.status(0)
-					}
-					dc.remoteService {
-						dc.type("NODE_COLLECTOR")
-						dc.uri("http://#{ip}:#{port}/nodecollector")
-						dc.status(0)
-					}
-					dc.remoteService {
-						dc.type("STORAGE_SYSTEM_MONITOR")
-						dc.uri("http://#{ip}:#{port}/ssm")
-						dc.status(0)
-					}
-					dc.remoteService {
-						dc.type("BPM_SERVICE")
-						dc.uri("http://#{ip}:#{port}/bpm-async")
-						dc.status(0)
-					}
-					dc.remoteService {
-						dc.type("DHCP_SERVICE")
-						dc.uri("http://#{ip}:7911")
-						dc.status(0)
-					}
-				}
-			end
-		elsif rs.length == 7
-			entity = builder.datacenter do |dc|
-				dc.uuid(uuid)
-				dc.name(name)
-				dc.location(location)
-				dc.remoteServices { 
-					dc.totalSize(7)
-					dc.remoteService { 
-						dc.type("VIRTUAL_FACTORY")
-						dc.uri("http://#{rs[:vf]}/virtualfactory")
-						dc.status(0)
-					}
-					dc.remoteService { 
-						dc.type("VIRTUAL_FACTORY")
-						dc.uri("http://#{rs[:vsm]}/vsm")
-						dc.status(0)
-					}
-					dc.remoteService { 
-						dc.type("VIRTUAL_FACTORY")
-						dc.uri("http://#{rs[:am]}/am")
-						dc.status(0)
-					}
-					dc.remoteService { 
-						dc.type("VIRTUAL_FACTORY")
-						dc.uri("http://#{rs[:nc]}/nodecollector")
-						dc.status(0)
-					}
-					dc.remoteService { 
-						dc.type("VIRTUAL_FACTORY")
-						dc.uri("http://#{rs[:ssm]}/ssm")
-						dc.status(0)
-					}
-					dc.remoteService { 
-						dc.type("BPM-ASYNC")
-						dc.uri("http://#{rs[:bpm]}/bpm-async")
-						dc.status(0)
-					}
-					dc.remoteService { 
-						dc.type("DHCP")
-						dc.uri("http://#{rs[:dhcp]}:7911")
-						dc.status(0)
-					}
-				}
-			end
+	def self.get(resource, headers={})
+		if headers.nil? then
+			res = RestClient::Resource.new(resource, @@username, @@password)
+			response = res.get
+		else
+			res = RestClient::Resource.new(resource, @@username, @@password)
+			response = res.get(headers)
 		end
 		
-		$log.debug "#{entity}"
-
-		begin 
-			response = RestClient.post url, entity, :content_type => 'application/vnd.abiquo.datacenter+xml'
-
-			if response.code == 201 # Resource created ok
-				xml = XmlSimple.xml_in(response)
-				$log.debug xml
-				$log.info "Datacenter created OK with id #{xml['id']}"
-				return xml['id']
-			end
-		rescue RestClient::Conflict
-			$log.info "Requested datacenter already exists."
+		if response.code == 201 then
+			return response.body
+		else
 			return nil
 		end
 	end
 
+	def self.post(resource, data, headers={})
+		begin 
+			resource = RestClient::Resource.new(resource, :user => @@username, :password => @@password)
+			if headers.nil? then
+				response = resource.post(data)
+			else
+				response = resource.post(data, headers)
+			end
+			if response.code == 201 then
+				return response.body
+			else
+				return nil
+			end
+		rescue RestClient::Exception => conflict
+			errormsg = Nokogiri::XML.parse(conflict.response).xpath('//errors/error')
+			if not errormsg.nil? then
+				errormsg.each do |error|
+					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+				end
+			else
+				raise e.message
+			end
+		end
+	end
+
+	def self.put(resource, data, headers={})
+		begin 
+			resource = RestClient::Resource.new(resource, :user => @@username, :password => @@password)
+			if headers.nil? then
+				response = resource.put(data)
+			else
+				response = resource.put(data, headers)
+			end
+			$log.info "Response code : #{response.code}"
+			if response.code == 200 then
+				return response.body
+			else
+				return nil
+			end
+		rescue RestClient::Exception => conflict
+			errormsg = Nokogiri::XML.parse(conflict.response).xpath('//errors/error')
+			if not errormsg.nil? then
+				errormsg.each do |error|
+					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+				end
+			else
+				raise e.message
+			end
+		end
+	end
+
+	def self.delete(resource)
+		begin
+			resource = RestClient::Resource.new(resource, :user => @@username, :password => @@password)
+			response = resource.delete()
+		rescue RestClient::Exception => conflict
+			errormsg = Nokogiri::XML.parse(conflict.response).xpath('//errors/error')
+			if not errormsg.nil? then
+				errormsg.each do |error|
+					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+				end
+			else
+				raise e.message
+			end
+		end
+	end
+
+=begin
 	def create_virtualdatacenter(	enterpriselink, iddatacenter )
 		$log.info "Instanciated virtualdatacenter for enterprise #{enterpriselink}"
 
@@ -256,6 +233,7 @@ class Abiquo
 			end
 		}
 
+<<<<<<< HEAD
 	return nil
 	end
 
@@ -283,6 +261,10 @@ class Abiquo
 
 	# 	return nil
 	# end
+=======
+		return nil
+	end
+>>>>>>> mcirauqui-api
 
 	def get_kvm_definition(vmID)
 		# call login to get the link to VMs
@@ -296,8 +278,10 @@ class Abiquo
 		vms = _httpget(url)
 		$log.info "VMs count: #{vms.length}"
 	end
+=end
 end
 
+<<<<<<< HEAD
 require './lib/enterprise'
 require './lib/virtualdatacenter'
 require './lib/virtualappliance'
@@ -307,3 +291,15 @@ require './lib/rack'
 require './lib/machine'
 #require 'lib/roles'
 require './lib/user'
+=======
+require 'lib/datacenter'
+require 'lib/rack'
+require 'lib/machine'
+require 'lib/device'
+#require 'lib/enterprise'
+require 'lib/virtualdatacenter'
+require 'lib/virtualappliance'
+require 'lib/virtualmachine'
+#require 'lib/roles'
+#require 'lib/user'
+>>>>>>> mcirauqui-api

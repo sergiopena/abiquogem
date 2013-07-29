@@ -1,0 +1,2193 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Contet",
+				"Content-Type"
+			],
+			[
+				"accept",
+				"accept_header"
+			],
+			[
+				"acce",
+				"accept_header"
+			],
+			[
+				"dcs",
+				"dcsxml"
+			],
+			[
+				"mac",
+				"machine"
+			],
+			[
+				"mgmt",
+				"mgmtip"
+			],
+			[
+				"get_by",
+				"get_by_ip"
+			],
+			[
+				"tier",
+				"tier_name"
+			],
+			[
+				"poo",
+				"pool_data"
+			],
+			[
+				"mana",
+				"managementport"
+			],
+			[
+				"NO",
+				"Nokogiri"
+			],
+			[
+				"ava",
+				"availableInMB"
+			],
+			[
+				"use",
+				"usedInMB"
+			],
+			[
+				"size",
+				"sizeInMB"
+			],
+			[
+				"to_",
+				"to_str"
+			],
+			[
+				"to",
+				"to_xml"
+			],
+			[
+				"pools",
+				"poolsxml"
+			],
+			[
+				"iscs",
+				"iscsiip"
+			],
+			[
+				"manage",
+				"managementip"
+			],
+			[
+				"managem",
+				"managementIp"
+			],
+			[
+				"St",
+				"StorageDev"
+			],
+			[
+				"is",
+				"iscsiIp"
+			],
+			[
+				"mgm",
+				"mgmtport"
+			],
+			[
+				"isc",
+				"iscsiPort"
+			],
+			[
+				"st",
+				"storageTechnology"
+			],
+			[
+				"isi",
+				"iscsiPort"
+			],
+			[
+				"rac",
+				"racksurl"
+			],
+			[
+				"ract",
+				"racktest"
+			],
+			[
+				"nst",
+				"nsts"
+			],
+			[
+				"networkservice",
+				"networkservicetypes"
+			],
+			[
+				"user",
+				"username"
+			],
+			[
+				"acc",
+				"accept_header"
+			],
+			[
+				"resour",
+				"resource_url"
+			],
+			[
+				"clod",
+				"cloud_api"
+			],
+			[
+				"admi",
+				"admin_api"
+			],
+			[
+				"api",
+				"apiurl"
+			],
+			[
+				"dc",
+				"dcxml"
+			],
+			[
+				"defa",
+				"default_action"
+			],
+			[
+				"mult",
+				"multiple_update"
+			],
+			[
+				"tas",
+				"task_ids"
+			],
+			[
+				"de",
+				"default_action"
+			],
+			[
+				"get",
+				"get_virtualmachine_volumes"
+			],
+			[
+				"rel",
+				"rel_vm"
+			],
+			[
+				"get_vir",
+				"get_virtualmachine_volumes"
+			],
+			[
+				"get_",
+				"get_virtualmachine_disks"
+			],
+			[
+				"hyper",
+				"hypervisor"
+			],
+			[
+				"targ",
+				"targetlun"
+			],
+			[
+				"initia",
+				"initiatoriqn"
+			],
+			[
+				"initiator",
+				"initiator_mapping"
+			],
+			[
+				"M",
+				"MYSQLCMD"
+			],
+			[
+				"MYSQ",
+				"MYSQLPASS"
+			],
+			[
+				"MYSQL",
+				"MYSQLPASS"
+			],
+			[
+				"MY",
+				"MYSQLCMD"
+			],
+			[
+				"hyperviso",
+				"HYPERVISOR"
+			],
+			[
+				"canc",
+				"cancel_all_lnk"
+			],
+			[
+				"tass",
+				"tasks_all"
+			],
+			[
+				"TAS",
+				"TAKSDELIM"
+			],
+			[
+				"tasks",
+				"tasks_all"
+			],
+			[
+				"ca",
+				"cancel_all_lnk"
+			],
+			[
+				"accept_",
+				"accept_all_lnk"
+			],
+			[
+				"task",
+				"task_id"
+			],
+			[
+				"email",
+				"emailsList"
+			],
+			[
+				"bind_",
+				"bind_port"
+			],
+			[
+				"id",
+				"idvirtualapp"
+			],
+			[
+				"Abi",
+				"abiAdmin"
+			],
+			[
+				"data",
+				"datacenter"
+			],
+			[
+				"attr",
+				"attrName"
+			],
+			[
+				"rackt",
+				"racktest"
+			],
+			[
+				"rack",
+				"racktest"
+			],
+			[
+				"ad",
+				"admin_api"
+			],
+			[
+				"vla",
+				"vlansIdAvoided"
+			],
+			[
+				"pass",
+				"password"
+			],
+			[
+				"Res",
+				"RestClient"
+			],
+			[
+				"respon",
+				"responsexml"
+			],
+			[
+				"machine",
+				"machinexml"
+			],
+			[
+				"cpu",
+				"cpuUsed"
+			],
+			[
+				"netwo",
+				"networkinterface"
+			],
+			[
+				"networkinter",
+				"networkinterfaces"
+			],
+			[
+				"let",
+				"length"
+			],
+			[
+				"par",
+				"parse"
+			],
+			[
+				"datas",
+				"datavswitch"
+			],
+			[
+				"datastore",
+				"datastoreUUID"
+			],
+			[
+				"resourc",
+				"resourceType"
+			],
+			[
+				"ram",
+				"ramUsed"
+			],
+			[
+				"init",
+				"initiatorIQN"
+			],
+			[
+				"ini",
+				"initiatorIQN"
+			],
+			[
+				"parse",
+				"parsed_info"
+			],
+			[
+				"pars",
+				"parsed_info"
+			],
+			[
+				"node",
+				"node_hash"
+			],
+			[
+				"ret",
+				"retracks"
+			],
+			[
+				"att",
+				"attr_accessor"
+			],
+			[
+				"vlan",
+				"vlanIdMax"
+			],
+			[
+				"vlanidM",
+				"vlanIdMax"
+			],
+			[
+				"hyp",
+				"hyp_type"
+			],
+			[
+				"tem",
+				"template_resp"
+			],
+			[
+				"to_s",
+				"to_str"
+			],
+			[
+				"vlanid",
+				"vlanIdMin"
+			],
+			[
+				"all",
+				"all_services"
+			],
+			[
+				"remote",
+				"remoteService"
+			],
+			[
+				"_end",
+				"_endTime_aed"
+			],
+			[
+				"end",
+				"end_iter_time"
+			],
+			[
+				"_start",
+				"_startTime_aed"
+			],
+			[
+				"start",
+				"start_iter_time"
+			],
+			[
+				"_startTime_a",
+				"_startTime_aes"
+			],
+			[
+				"sta",
+				"start_iter_time"
+			],
+			[
+				"_",
+				"_startTime"
+			],
+			[
+				"idSt",
+				"idStTier"
+			],
+			[
+				"idVC",
+				"idVDC"
+			],
+			[
+				"idVirtual",
+				"idVirtualDataCenter"
+			],
+			[
+				"resor",
+				"resourceType"
+			],
+			[
+				"idAc",
+				"idAccountingResourceType"
+			],
+			[
+				"acco",
+				"accounting_event_detail"
+			],
+			[
+				"kitn",
+				"kinton_accounting"
+			],
+			[
+				"_id",
+				"_idResource"
+			],
+			[
+				"res",
+				"resourceUnits"
+			],
+			[
+				"idEn",
+				"idEnt"
+			],
+			[
+				"IdVir",
+				"idVirtualDataCenter"
+			],
+			[
+				"num",
+				"num_iter"
+			],
+			[
+				"o",
+				"idObject"
+			],
+			[
+				"AC",
+				"ACCTVOLSTART"
+			],
+			[
+				"ACC",
+				"ACCTVOLDATES"
+			],
+			[
+				"LAST",
+				"LASTACCT"
+			],
+			[
+				"kinton",
+				"kinton_accounting"
+			],
+			[
+				"acd",
+				"acdres"
+			],
+			[
+				"IP",
+				"IPADDRESS"
+			],
+			[
+				"EXP",
+				"EXPIRE_DATE"
+			],
+			[
+				"var",
+				"var_dump"
+			],
+			[
+				"read",
+				"readLicense"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.rb",
+			"settings":
+			{
+				"buffer_size": 5658,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "require 'rest-client'\nrequire 'nokogiri'\n\nclass Abiquo::Rack < Abiquo\n	attr_accessor :xml\n	attr_accessor :url\n	attr_accessor :datacenter\n	attr_accessor :machines\n	attr_accessor :rackid\n	attr_accessor :haEnabled\n	attr_accessor :longDescription\n	attr_accessor :name\n	attr_accessor :nrsq\n	attr_accessor :shortDescription\n	attr_accessor :vlanIdMin\n	attr_accessor :vlanIdMax\n	attr_accessor :vlansIdAvoided\n	attr_accessor :vlanPerVdcReserved\n\n  	def initialize(rackxml)\n  		r = Nokogiri::XML.parse(rackxml)\n  		@xml = rackxml\n  		@url = r.xpath('//link[@rel=\"edit\"]').attribute('href').to_str\n  		@datacenter = r.xpath('//link[@rel=\"datacenter\"]').attribute('href').to_str\n  		@machines = r.xpath('//link[@rel=\"machines\"]').attribute('href').to_str\n  		@rackid = r.at('/rack/id').to_str\n		@haEnabled = r.at('/rack/haEnabled').to_str\n		r.at('/rack/longDescription').nil? ? @longDescription = \"\" : @longDescription = r.at('/rack/longDescription').to_str\n		@name = r.at('/rack/name').to_str\n		@nrsq = r.at('/rack/nrsq').to_str\n		@shortDescription = r.at('/rack/shortDescription').to_str\n		@vlanIdMin = r.at('/rack/vlanIdMin').to_str\n		@vlanIdMax = r.at('/rack/vlanIdMax').to_str\n		r.at('/rack/vlansIdAvoided').nil? ? @vlansIdAvoided = \"\" : @vlansIdAvoided = r.at('/rack/vlansIdAvoided').to_str\n		@vlanPerVdcReserved = r.at('/rack/vlanPerVdcReserved').to_str\n  	end\n\n  	def self.list_all()\n  		racks = Array.new\n		dcurl = \"#{@@admin_api}/datacenters\"\n  		dcxml = RestClient::Request.new(:method => :get, :url => dcurl, :user => @@username, :password => @@password, :headers => { 'accept' => 'application/vnd.abiquo.datacenters+xml'}).execute\n  		Nokogiri::XML.parse(rackxml).xpath('//datacenters/datacenter').each do |dc|\n  			racksurl = dc.xpath('./link[@rel=\"racks\"]').attribute('href').to_str\n			rackxml = RestClient::Request.new(:method => :get, :url => racksurl, :user => @@username, :password => @@password).execute\n  			Nokogiri::XML.parse(rackxml).xpath('//racks/rack').each do |rack|\n				racks << Abiquo::Rack.new(rack.to_xml)\n			end\n		end\n		return racks\n  	end\n\n  	def self.get_by_name(rack_name)\n  		dcurl = \"#{@@admin_api}/datacenters\"\n  		dcxml = RestClient::Request.new(:method => :get, :url => dcurl, :user => @@username, :password => @@password, :headers => { 'accept' => 'application/vnd.abiquo.datacenters+xml'}).execute\n  		Nokogiri::XML.parse(dcxml).xpath('//datacenters/datacenter').each do |dc|\n  			racksurl = dc.xpath('./link[@rel=\"racks\"]').attribute('href').to_str\n			rackxml = RestClient::Request.new(:method => :get, :url => racksurl, :user => @@username, :password => @@password).execute\n  			Nokogiri::XML.parse(rackxml).xpath('//racks/rack').each do |rack|\n				if rack.at('name').to_str == rack_name\n					return Abiquo::Rack.new(rack.to_xml)\n				end\n			end\n		end\n		return nil\n  	end\n\n  	def self.get_by_id(id)\n		dcurl = \"#{@@admin_api}/datacenters\"\n  		dcxml = RestClient::Request.new(:method => :get, :url => dcurl, :user => @@username, :password => @@password, :headers => { 'accept' => 'application/vnd.abiquo.datacenters+xml'}).execute\n  		Nokogiri::XML.parse(dcxml).xpath('//datacenters/datacenter').each do |dc|\n  			racksurl = dc.xpath('./link[@rel=\"racks\"]').attribute('href').to_str\n			rackxml = RestClient::Request.new(:method => :get, :url => racksurl, :user => @@username, :password => @@password).execute\n  			Nokogiri::XML.parse(rackxml).xpath('/racks/rack').each do |rack|\n				if rack.at('id').to_str == id.to_s\n					return Abiquo::Rack.new(rack.to_xml)\n				end\n			end\n		end\n		return nil\n	end\n\n	def self.create_standard(dc, name, desc, ha, vlanmin, vlanmax, vlanavoid)\n		content = \"application/vnd.abiquo.rack+xml;\"\n		builder = Builder::XmlMarkup.new\n		entity = builder.rack do |rack|\n			rack.name(name)\n			rack.shortDescription(desc)\n			rack.haEnabled(ha)\n			rack.nsrq(10)\n			rack.vlanIdMax(vlanmax)\n			rack.vlanIdMin(vlanmin)\n		end\n		\n		begin \n			content = 'application/vnd.abiquo.rack+xml'\n			resour = RestClient::Resource.new(dc.racks, :user => @@username, :password => @@password)\n			resp = resour.post entity, :content_type => content\n			return Abiquo::Rack.new(resp)\n		rescue => e\n			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')\n			if not errormsg.nil? then\n				errormsg.each do |error|\n					raise \"Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}\"\n				end\n			else\n				raise e.message\n			end\n		end\n	end\n\n	def update_standard()\n		content = \"application/vnd.abiquo.rack+xml;\"\n		builder = Builder::XmlMarkup.new\n		entity = builder.rack do |rack|\n			rack.name(@name)\n			rack.shortDescription(@desc)\n			rack.haEnabled(@ha)\n			rack.nsrq(@msrq)\n			rack.vlanIdMax(@vlanmax)\n			rack.vlanIdMin(@vlanmin)\n			@vlansIdAvoided.nil? ? rack.vlansIdAvoided(@vlansIdAvoided) : rack.vlansIdAvoided()\n			rack.link('rel' => 'edit', 'href' => @url, 'type' => content)\n		end\n		$log.info \"ENT : #{entity.inspect}\"\n		begin \n			content = 'application/vnd.abiquo.rack+xml'\n			resour = RestClient::Resource.new(@url, :user => @@username, :password => @@password)\n			resp = resour.put entity, :content_type => content\n			return Abiquo::Rack.new(resp)\n		rescue => e\n			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')\n			if not errormsg.nil? then\n				errormsg.each do |error|\n					raise \"Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}\"\n				end\n			else\n				raise e.message\n			end\n		end\n	end\n\n	def get_machines()\n		machinesxml = RestClient::Request.new(:method => :get, :url => @machines, :user => @@username, :password => @@password).execute\n		gotMachines = Array.new()\n		Nokogiri::XML.parse(machinesxml).xpath('//machines/machine').each do |machine|\n			gotMachines << Abiquo::Machine.new(machine.to_xml)\n		end\n		return gotMachines\n	end\n\n	def delete()\n		req = RestClient::Request.new(:method => :delete, :url => @url, :user => @@username, :password => @@password)\n		response = req.execute\n	end\n\n	def get_datacenter()\n		dcxml = RestClient::Request.new(:method => :get, :url => @datacenter, :user => @@username, :password => @@password, :headers => {'accept'=>'application/vnd.abiquo.datacenters+xml'}).execute\n		return Abiquo::Machine.new(Nokogiri::XML.parse(dcxml).xpath('//datacenters/datacenter').to_xml)\n	end\nend\n",
+			"file": "lib/rack.rb",
+			"file_size": 6226,
+			"file_write_time": 1373018007000000,
+			"settings":
+			{
+				"buffer_size": 6226,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/device.rb",
+			"settings":
+			{
+				"buffer_size": 8392,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/datacenter.rb",
+			"settings":
+			{
+				"buffer_size": 7069,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "#\n#\n# Abiquo API Interface\n#\n# Author: Sergio Pena\n#\n#\n\n#\n# Main class\n#\n\nrequire 'builder'\nrequire 'rest_client'\n\nclass Abiquo\n	attr_reader :admin_api\n	attr_reader :cloud_api\n	attr_reader :apiversion\n	#\n	# \n	# \n	def initialize(apiurl,username,password)\n		@@apiurl = apiurl\n		@@username = username\n		@@password = password\n		@@admin_api = \"#{apiurl}/admin\"\n		@@cloud_api = \"#{apiurl}/cloud\"\n\n		@@apiversion = RestClient::Request.new(:method => :get, :url => \"#{apiurl}/version\", :user => username, :password => password).execute.to_s\n	end\n\n	def self.get(resource, headers={})\n		if headers.nil? then\n			res = RestClient::Resource.new(resource, @@username, @@password)\n			response = res.get\n		else\n			res = RestClient::Resource.new(resource, @@username, @@password)\n			response = res.get(headers)\n		end\n		\n		if response.code == 201 then\n			return response.body\n		else\n			return nil\n		end\n	end\n\n	def self.post(resource, data, headers={})\n		begin \n			resource = RestClient::Resource.new(resource, :user => @@username, :password => @@password)\n			if headers.nil? then\n				response = resource.post(data)\n			else\n				response = resource.post(data, headers)\n			end\n			if response.code == 201 then\n				return response.body\n			else\n				return nil\n			end\n		rescue RestClient::Exception => conflict\n			errormsg = Nokogiri::XML.parse(conflict.response).xpath('//errors/error')\n			if not errormsg.nil? then\n				errormsg.each do |error|\n					raise \"Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}\"\n				end\n			else\n				raise e.message\n			end\n		end\n	end\n\n	def self.put(resource, data, headers={})\n		begin \n			resource = RestClient::Resource.new(resource, :user => @@username, :password => @@password)\n			if headers.nil? then\n				response = resource.put(data)\n			else\n				response = resource.put(data, headers)\n			end\n			$log.info \"Response code : #{response.code}\"\n			if response.code == 200 then\n				return response.body\n			else\n				return nil\n			end\n		rescue RestClient::Exception => conflict\n			errormsg = Nokogiri::XML.parse(conflict.response).xpath('//errors/error')\n			if not errormsg.nil? then\n				errormsg.each do |error|\n					raise \"Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}\"\n				end\n			else\n				raise e.message\n			end\n		end\n	end\n\n	def self.delete(resource)\n		begin\n			resource = RestClient::Resource.new(resource, :user => @@username, :password => @@password)\n			response = resource.delete()\n		rescue RestClient::Exception => conflict\n			errormsg = Nokogiri::XML.parse(conflict.response).xpath('//errors/error')\n			if not errormsg.nil? then\n				errormsg.each do |error|\n					raise \"Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}\"\n				end\n			else\n				raise e.message\n			end\n		end\n	end\n\n=begin\n	def create_virtualdatacenter(	enterpriselink, iddatacenter )\n		$log.info \"Instanciated virtualdatacenter for enterprise #{enterpriselink}\"\n\n		builder = builder::xmlmarkup.new()\n		entity = builder.virtualdatacenter  do |x|\n			x.link(enterpriselink)\n			x.link(:rel => \"datacenter\", :href => \"http://#{@@server}/api/admin/datacenters/#{iddatacenter}\") \n			x.hypervisorType(\"KVM\")\n			x.name(\"Default VDC\")\n			x.network {\n			x.address(\"192.168.1.0\")\n			x.gateway(\"192.168.1.1\")\n			x.mask(\"24\")\n			x.name(\"defaultnetwork\")\n			x.type(\"INTERNAL\")\n				x.unmanaged(\"false\")\n			}\n		end\n\n		$log.debug @url\n		$log.debug entity\n\n		response = RestClient.post @url, entity, :accept => @accept, :content_type => @content\n\n		if response.code == 201 # Resource created ok\n			xml = XmlSimple.xml_in(response)\n			$log.debug xml\n			xml['link'].each { |x| \n				if x[\"rel\"] == 'topurchase'\n					self.topurchaselink = x\n				end\n				if x[\"rel\"] == 'edit'\n					self.editlink = x\n				end\n			}\n			$log.info \"Default VirtualDatacenter created OK\"\n			#$log.error self.editlink\n		end\n	end\n\n	#\n	# Wrapper to the REST get operation \n	#\n	def _httpget(url)\n		tmpurl = url.split('/')\n		(0..tmpurl.index('api')-1).each do |x|\n			tmpurl.delete_at(0)\n		end\n		parsedurl = \"http://#{@@username}:#{@@password}@#{@@server}/#{tmpurl.join('/')}\"\n\n		$log.info \"Retrieving to #{parsedurl}\"\n		response = RestClient.get( parsedurl )\n\n\n		if response.code == 200\n			xmloutput = XmlSimple.xml_in(response)\n			return xmloutput\n		end\n\n	rescue => e\n		$log.error e.message\n\n	end\n\n	def _getlinks(object, type)\n		object['link'].each { |l|\n			if l['rel'] == type \n				return l['href']\n			end\n		}\n\n		return nil\n	end\n\n	def list_enterprises()\n		url = \"http://#{@@username}:#{@@password}@#{@@server}/api/admin/enterprises\"\n		xml = self._httpget(url)\n		ents = []\n		xml['enteprise'].each { |ent|\n			ent << ents[\"id\"][0]\n		}\n		return ents\n	end\n\n	def get_enteprise_by_id(id)\n		url = \"http://#{@@username}:#{@@password}@#{@@server}/api/admin/enterprises\"\n		xml = self._httpget(url)\n\n		xml['enteprise'].each { |ent|\n			if ent[\"id\"][0] == id\n				$log.debug \"Found ent #{ent['id']}\"\n				return ent\n			end\n		}\n\n		return nil\n	end\n	\n	def list_virtualdatacenters()\n		url = \"http://#{@@username}:#{@@password}@#{@@server}/api/cloud/virtualdatacenters\"\n		xml = self._httpget(url)\n		vdcs = []\n		xml['virtualDatacenter'].each { |vdc|\n			vdcs << vdc[\"id\"][0]\n		}\n		return vdcs\n	end\n\n	def get_vdc_by_id(id)\n		url = \"http://#{@@username}:#{@@password}@#{@@server}/api/cloud/virtualdatacenters\"\n		xml = self._httpget(url)\n\n		xml['virtualDatacenter'].each { |vdc|\n			if vdc[\"id\"][0] == id\n				$log.debug \"Found VDC #{vdc['id']}\"\n				return vdc\n			end\n		}\n\n		return nil\n	end\n\n	def get_kvm_definition(vmID)\n		# call login to get the link to VMs\n		url = \"http://#{@@username}:#{@@password}@#{@@server}/api/login\"\n		login = _httpget(url)\n		login['link'].each do |x|\n			if x['rel'] == 'virtualmachines'\n				url = x['href']\n			end\n		end\n		vms = _httpget(url)\n		$log.info \"VMs count: #{vms.length}\"\n	end\n=end\nend\n\nrequire 'lib/datacenter'\nrequire 'lib/rack'\nrequire 'lib/machine'\nrequire 'lib/device'\n#require 'lib/enterprise'\nrequire 'lib/virtualdatacenter'\nrequire 'lib/virtualappliance'\nrequire 'lib/virtualmachine'\n#require 'lib/roles'\n#require 'lib/user'\n",
+			"file": "abiquo.rb",
+			"file_size": 6047,
+			"file_write_time": 1373274825000000,
+			"settings":
+			{
+				"buffer_size": 6047,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/user.rb",
+			"settings":
+			{
+				"buffer_size": 1489,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/enterprise.rb",
+			"settings":
+			{
+				"buffer_size": 6609,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Ruby/Ruby.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"",
+				"Indent JSON"
+			],
+			[
+				"json",
+				"Indent JSON"
+			],
+			[
+				"xmll",
+				"XMLLint: Prettify XML"
+			],
+			[
+				"xml",
+				"XMLLint: Prettify XML"
+			],
+			[
+				"xml li",
+				"XMLLint: Prettify XML"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: instal",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: up",
+				"Package Control: Upgrade Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/mcirauqui/abiquogem/lib/enterprise.rb",
+		"/home/mcirauqui/.cache/.fr-eMd5dz/tmp_luninfo_220",
+		"/home/mcirauqui/Downloads/tmp_vm_finder.sh",
+		"/home/mcirauqui/abiquogem/lib/machine.rb",
+		"/home/mcirauqui/abiquogem/lib/machine26.rb",
+		"/home/mcirauqui/Downloads/delete_not_managed.sh",
+		"/tmp/ss",
+		"/tmp/aa",
+		"/tmp/kk",
+		"/home/mcirauqui/Downloads/create_vm.sh",
+		"/home/mcirauqui/Downloads/delvols.sh",
+		"/home/mcirauqui/test.py",
+		"/home/mcirauqui/Downloads/pvdisplay_20130701.txt",
+		"/home/mcirauqui/Downloads/lvmiscsi.log",
+		"/home/mcirauqui/events-notifier/eventing.py",
+		"/home/mcirauqui/events-notifier/main.py",
+		"/home/mcirauqui/Downloads/LVM_issue_25052013.txt",
+		"/home/mcirauqui/events-notifier/add_rule.py",
+		"/home/mcirauqui/events-notifier/delete_rule.py",
+		"/home/mcirauqui/events-notifier/init_rules_db.py",
+		"/home/mcirauqui/events-notifier/list_rules.py",
+		"/home/mcirauqui/events-notifier/rules.py",
+		"/home/mcirauqui/events-notifier/notifier.py",
+		"/home/mcirauqui/events-notifier/user.py",
+		"/home/mcirauqui/abiquogem/abiquo.rb",
+		"/home/mcirauqui/abiquogem/lib/datacenter.rb",
+		"/home/mcirauqui/abiquogem/lib/rack.rb",
+		"/home/mcirauqui/abiquogem/lib/device.rb",
+		"/home/mcirauqui/abiquogem/main.rb",
+		"/home/mcirauqui/Downloads/timestampoutput.log",
+		"/home/mcirauqui/Documents/Support/ssm_upgrade_v2.sh",
+		"/home/mcirauqui/Documents/Support/blufire_access.txt",
+		"/home/mcirauqui/abiquogem/lib/pool.rb",
+		"/home/mcirauqui/abiquogem/README.md",
+		"/home/mcirauqui/abiquogem/abiquo/httplib.rb",
+		"/home/mcirauqui/abiquogem/abiquo/abiquo.rb",
+		"/home/mcirauqui/abiquogem/abiquo/rack.rb",
+		"/home/mcirauqui/abiquogem/abiquo/datacenter.rb",
+		"/home/mcirauqui/abiquogem/abiquo/virtualdatacenter.rb",
+		"/home/mcirauqui/abiquogem/lib/virtualmachine.rb",
+		"/home/mcirauqui/test.rb",
+		"/home/mcirauqui/abiquogem/lib/api.rb",
+		"/home/mcirauqui/abiquogem/lib/roles.rb",
+		"/home/mcirauqui/abiquogem/lib/user.rb",
+		"/home/mcirauqui/abiquogem/lib/virtualdatacenter.rb",
+		"/home/mcirauqui/abiquogem/lib/virtualappliance.rb",
+		"/home/mcirauqui/abiquogem/lib/virtualmachinetask.xml",
+		"/home/mcirauqui/.config/sublime-text-2/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/home/mcirauqui/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
+		"/home/mcirauqui/.config/sublime-text-2/Packages/User/SublimeLinter.sublime-settings",
+		"/home/mcirauqui/workspace/.metadata/.plugins/org.eclipse.core.filesystem/filecache/1372047447669/rse8969120362459719413efs",
+		"/run/user/mcirauqui/gvfs/sftp:host=10.60.13.39/root/workflow/virtualmachine_storage.html",
+		"/run/user/mcirauqui/gvfs/sftp:host=10.60.13.39/root/workflow/virtualmachine.html",
+		"/run/user/mcirauqui/gvfs/sftp:host=10.60.13.39/root/workflow/admin.html",
+		"/run/user/mcirauqui/gvfs/sftp:host=10.60.13.39/root/workflow/notifier.py",
+		"/run/user/mcirauqui/gvfs/sftp:host=10.60.13.39/root/workflow/webserver.py",
+		"/run/user/mcirauqui/gvfs/sftp:host=10.60.13.39/root/workflow/workflow.cfg",
+		"/run/user/mcirauqui/gvfs/sftp:host=10.60.13.39/root/workflow/task_handler.py",
+		"/run/user/mcirauqui/gvfs/sftp:host=10.60.13.39/root/workflow/task.py",
+		"/run/user/mcirauqui/gvfs/sftp:host=10.60.13.39/root/workflow/api.py",
+		"/run/user/mcirauqui/gvfs/sftp:host=10.60.13.39/root/workflow/main.py",
+		"/home/mcirauqui/Downloads/command_output.txt",
+		"/home/mcirauqui/Desktop/vm-entity-2.4.1.xml",
+		"/home/mcirauqui/Downloads/virtualimage-extension.txt",
+		"/home/mcirauqui/Documents/Support/ssm_upgrade.sh",
+		"/home/mcirauqui/Downloads/api-listing.txt",
+		"/home/mcirauqui/Downloads/api quickstart.txt",
+		"/home/mcirauqui/Downloads/blah.txt",
+		"/home/mcirauqui/.config/sublime-text-2/Packages/xmllint/xmllint.py",
+		"/home/mcirauqui/.config/sublime-text-2/Packages/User/Plain text.sublime-settings",
+		"/home/mcirauqui/.config/sublime-text-2/Packages/xmllint/xmllint.sublime-settings",
+		"/home/mcirauqui/.config/sublime-text-2/Packages/User/xmllint.sublime-settings",
+		"/home/mcirauqui/Documents/Support/ABIQUO_SUPPORT_2241_FIX .sql",
+		"/home/mcirauqui/Documents/Support/update_storage_triggers.sql",
+		"/home/mcirauqui/Documents/Support/seq_fix.sql",
+		"/home/mcirauqui/Documents/Support/check_volume_accounting.sh",
+		"/home/mcirauqui/Documents/Support/6ys_accounting_fix/restore_unsubscribed_virtualmachine.sh",
+		"/home/mcirauqui/Downloads/list_command.txt",
+		"/home/mcirauqui/Downloads/abiquo-mariadb-upgrade.sh",
+		"/home/mcirauqui/Downloads/2273-lunlist.txt",
+		"/home/mcirauqui/Downloads/abiquo-mariadb-upgrade (1).sh",
+		"/run/user/mcirauqui/gvfs/sftp:host=10.60.13.39/root/workflow/req.html",
+		"/run/user/mcirauqui/gvfs/sftp:host=10.60.13.39/root/workflow/req_virtualmachine.html",
+		"/home/mcirauqui/Downloads/lun_shuffle.bash",
+		"/home/mcirauqui/Downloads/VMware-ClientIntegrationPlugin-5.1.0.x86_64.bundle",
+		"/home/mcirauqui/Downloads/integrity.rb",
+		"/home/mcirauqui/Downloads/Inconsistences_NC_BBDD.txt",
+		"/home/mcirauqui/Downloads/find_vols_ents.bash",
+		"/home/mcirauqui/Downloads/screen_output (1).txt",
+		"/home/mcirauqui/Documents/Support/Forum/noVNC/novnc_tokens.rb",
+		"/home/mcirauqui/Downloads/2271/missing_mappings/restore_bpm_mappings.sql",
+		"/home/mcirauqui/Documents/Support/Forum/noVNC/haproxy/haproxy",
+		"/home/mcirauqui/Downloads/2271/missing_mappings/restore_bom_mappings.sql",
+		"/home/mcirauqui/Downloads/2271/missing_mappings/missing_mappings.sql",
+		"/home/mcirauqui/Downloads/screen_output.txt",
+		"/home/mcirauqui/Downloads/2269/2267.zip.002",
+		"/home/mcirauqui/Downloads/abiquo_check_rabbit (1)",
+		"/home/mcirauqui/Downloads/abiquo_check_rabbit",
+		"/home/mcirauqui/.cache/.fr-8Hug03/abiquo.rb",
+		"/home/mcirauqui/.cache/.fr-eojWga/main.rb",
+		"/home/mcirauqui/client-api-ssl.txt",
+		"/home/mcirauqui/Downloads/RS4 log #2249 May14 2013.log",
+		"/home/mcirauqui/Downloads/ABIQUO_SUPPORT_2241_FIX.sql",
+		"/home/mcirauqui/Desktop/vsm-nex.html",
+		"/home/mcirauqui/.cache/.fr-zB5emR/Viscosity.visc/config.conf",
+		"/home/mcirauqui/Documents/Support/test-fix2109.sql",
+		"/home/mcirauqui/Downloads/virtualimage (1).txt",
+		"/home/mcirauqui/test2.py",
+		"/home/mcirauqui/Downloads/virtualimage.txt",
+		"/home/mcirauqui/Documents/Support/API Balancing/2client1api.conf",
+		"/home/mcirauqui/Downloads/user_template.xml",
+		"/home/mcirauqui/Downloads/virtualmachine_template (2).xml",
+		"/run/user/mcirauqui/gvfs/sftp:host=192.168.1.2/home/chiru/.flexget/received/My_TV_Shows/How I Met Your Mother S08E22 720p HDTV X264 DIMENSION.error",
+		"/run/user/mcirauqui/gvfs/sftp:host=192.168.1.2/home/chiru/.flexget/received/My_TV_Shows/Castle 2009 S05E22 720p HDTV x264 DIMENSION.error",
+		"/home/mcirauqui/Downloads/catalina.out",
+		"/home/mcirauqui/abiquogem/lib/abiquoapi.rb",
+		"/home/mcirauqui/abiquogem/lib/admin/datacenter.rb",
+		"/home/mcirauqui/abiquogem/lib/admin.rb",
+		"/run/user/mcirauqui/gvfs/sftp:host=192.168.1.2/home/chiru/.flexget/config.yml",
+		"/home/mcirauqui/Downloads/maven-metadata.xml",
+		"/run/user/mcirauqui/gvfs/sftp:host=192.168.1.15/home/pi/.flexget/config.yml",
+		"/run/user/mcirauqui/gvfs/sftp:host=192.168.1.15/home/pi/.flexget/series.yml",
+		"/home/mcirauqui/Desktop/system_manager.desktop",
+		"/home/mcirauqui/Downloads/Schemas/schema_resumen.txt",
+		"/home/mcirauqui/Downloads/Schemas/schema_2.3.0.sql",
+		"/home/mcirauqui/Downloads/Schemas/delta_of_delta.sql",
+		"/home/mcirauqui/Downloads/Schemas/schema_2.3.0Upgraded.sql",
+		"/home/mcirauqui/liquibase/DB_comparison2.sh"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"attribute",
+			"resour",
+			"ConflictException",
+			"\\\"",
+			".id",
+			"@id",
+			"$log",
+			"port",
+			"@id",
+			"storagedevs",
+			"rescue",
+			"datacenter",
+			"rescue",
+			"disk",
+			"build_html_virtualmachine_template",
+			"$",
+			"name",
+			"67bbcd23-1ad0-4536-961c-7a07554d37a8",
+			">\n",
+			"\n<",
+			"External Volumes:",
+			"535701",
+			"),(",
+			"/usr/bin/haproxy",
+			"virtualmachinetrackedstate",
+			"pricingTemplate",
+			"physicalmachine",
+			"ovf_package_list_has_ovf_package",
+			"enterprise_theme",
+			"AccountingIPsRegisterEvents",
+			"deprecated",
+			"|",
+			"'",
+			"&&",
+			":post",
+			"add_child",
+			"{",
+			"vSwitch",
+			"rack",
+			"\"virtualappliances\"",
+			"\"virtualDatacenter\"",
+			"\"virtualmachine\"",
+			"edit",
+			"\"virtualDatacenter\"",
+			"httpget",
+			"_httpget",
+			"r.",
+			"rs.",
+			"rs",
+			"rs.",
+			"attached",
+			"_resourceName",
+			"ffe30609-ea9b-406a-a085-9e3ea4ed72e5",
+			"f77ce6e4-679d-48f8-880f-a2f179780b8d",
+			"SELECT m.idDatacenter, m.idPhysicalMachine, l.id, m.cpu, m.ram, l.cpuLoadPercentage, l.ramLoadPercentage FROM rack r INNER JOIN workload_machine_load_rule l ON r.idRack = l.idRack AND l.idMachine IS NULL INNER JOIN physicalmachine m ON r.idRack = m.idRack GROUP BY m.idDatacenter",
+			"update",
+			"printSummary",
+			"checkIp",
+			"kernel",
+			"libvi",
+			"libvirt",
+			"return",
+			"hostname_or_ip",
+			"root",
+			"CalculateCloudUsageStats",
+			"\n\n\n\nRFT",
+			"RFT",
+			"vi ",
+			"VSM_api_version",
+			"FROM DEB",
+			"ABQ_bb8ab30a-c5a5-4c16-8a57-244555efb7fd",
+			"Error Occurred :Invalid configuration for device ",
+			"bb8a",
+			"api_get",
+			"ABQ_3ee3632a-df49-4a93-ab6d-81f36e9535df",
+			"delete_vapps",
+			"delete_demo",
+			"m",
+			"ctrl+alt+up",
+			"occurred during the handles chain invocation",
+			"ABQ_60a67b4b-d188-49f2-b1f8-3be291dac7a7",
+			"135997231",
+			"+1359972",
+			"+1359972320",
+			"+1359972310",
+			"+1359972319",
+			"=1359972319",
+			"1359972319",
+			"1659 K",
+			"CREATE TABLE",
+			"TABLE virtualmachne",
+			"virtualmachine",
+			"virtualmacine"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Exception",
+			"\"",
+			"stacktrace",
+			"\\n",
+			"$DAEMON",
+			"%27",
+			"%26%26",
+			"dc.",
+			"exit -1"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 6,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.rb",
+					"settings":
+					{
+						"buffer_size": 5658,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								678,
+								678
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_complete": false,
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_disabled_languages":
+							[
+							],
+							"codeintel_live": true,
+							"codeintel_live_disabled_languages":
+							[
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 220.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "lib/rack.rb",
+					"settings":
+					{
+						"buffer_size": 6226,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1631,
+								1631
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_complete": false,
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_disabled_languages":
+							[
+							],
+							"codeintel_live": true,
+							"codeintel_live_disabled_languages":
+							[
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 632.0,
+						"translation.y": 408.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "lib/device.rb",
+					"settings":
+					{
+						"buffer_size": 8392,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7857,
+								7857
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_complete": false,
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_disabled_languages":
+							[
+							],
+							"codeintel_live": true,
+							"codeintel_live_disabled_languages":
+							[
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2788.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "lib/datacenter.rb",
+					"settings":
+					{
+						"buffer_size": 7069,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2020,
+								2020
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_complete": false,
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_disabled_languages":
+							[
+							],
+							"codeintel_live": true,
+							"codeintel_live_disabled_languages":
+							[
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 663.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "abiquo.rb",
+					"settings":
+					{
+						"buffer_size": 6047,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								665,
+								665
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_complete": false,
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_disabled_languages":
+							[
+							],
+							"codeintel_live": true,
+							"codeintel_live_disabled_languages":
+							[
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 255.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "lib/user.rb",
+					"settings":
+					{
+						"buffer_size": 1489,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_complete": false,
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_disabled_languages":
+							[
+							],
+							"codeintel_live": true,
+							"codeintel_live_disabled_languages":
+							[
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "lib/enterprise.rb",
+					"settings":
+					{
+						"buffer_size": 6609,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								316,
+								316
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_complete": false,
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_disabled_languages":
+							[
+							],
+							"codeintel_live": true,
+							"codeintel_live_disabled_languages":
+							[
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 204.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 67.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/home/mcirauqui/SublimeText2/default.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

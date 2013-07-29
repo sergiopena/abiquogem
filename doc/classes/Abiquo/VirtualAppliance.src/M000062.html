@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>delete (Abiquo::VirtualAppliance)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/virtualappliance.rb, line 39</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete</span>()
+                <span class="ruby-identifier">$log</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Trying to delte #{url}&quot;</span>
+                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">get_state</span>
+                <span class="ruby-keyword kw">case</span> <span class="ruby-ivar">@state</span>[<span class="ruby-value">0</span>]
+                <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;NOT_DEPLOYED&quot;</span>
+                        <span class="ruby-constant">RestClient</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-ivar">@url</span>)
+                        <span class="ruby-identifier">$log</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Deleted #{url}&quot;</span>
+                <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;DEPLOYED&quot;</span>
+                        <span class="ruby-identifier">$log</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Vapps is deployed #{url}&quot;</span>
+                        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">undeploy</span>
+                        <span class="ruby-constant">RestClient</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-ivar">@url</span>)
+
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

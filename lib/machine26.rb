@@ -31,14 +31,14 @@ class Abiquo::Machine < Abiquo
 		@rack = m.xpath('//link[@rel="rack"]').attribute('href').to_str
 		@virtualmachines  = m.xpath('//link[@rel="virtualmachines"]').attribute('href').to_str
 		@checkstate = m.xpath('//link[@rel="checkstate"]').attribute('href').to_str
-		@id = m.at('/machine/id').to_str
+		@machineid = m.at('/machine/id').to_str
 		@description = m.at('/machine/description').to_str
 		@initiatorIQN = m.at('/machine/initiatorIQN').to_str
 		@ip = m.at('/machine/ip').to_str
 		@ipService = m.at('/machine/ipService').to_str
 		@ipmiPassword = m.at('/machine/ipmiPassword').to_str
 		@name = m.at('/machine/name').to_str
-		@port = m.at('/machine/port').to_str
+		@port = m.at('/machine/port').nil? ? 0 : m.at('/machine/port').to_str
 		@state = m.at('/machine/state').to_str
 		@type = m.at('/machine/type').to_str
 		@cpu = m.at('/machine/cpu').to_str
@@ -102,9 +102,9 @@ class Abiquo::Machine < Abiquo
 	end
 
 	def self.add_machine(rack, node_hash)
-		url = "#{rack.datacenter}/action/hypervisor?ip=#{node_hash[:ip]}"
-		htype = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
-		discurl = "#{rack.datacenter}/action/discoversingle?hypervisor=#{htype}&ip=#{node_hash[:ip]}&user=#{node_hash[:user]}&password=#{node_hash[:password]}"
+		#url = "#{rack.datacenter}/action/hypervisor?ip=#{node_hash[:ip]}"
+		#htype = RestClient::Request.new(:method => :get, :url => url, :user => @@username, :password => @@password).execute
+		discurl = "#{rack.datacenter}/action/discover?hypervisor=#{node_hash[:type]}&ip=#{node_hash[:ip]}&user=#{node_hash[:user]}&password=#{node_hash[:password]}"
 
 		nstroot = "#{rack.datacenter}/networkservicetypes"
 		nstxml = RestClient::Request.new(:method => :get, :url => nstroot, :user => @@username, :password => @@password).execute
@@ -120,7 +120,7 @@ class Abiquo::Machine < Abiquo
 		machinexml = RestClient::Request.new(:method => :get, :url => discurl, :user => @@username, :password => @@password).execute
 		machine = Nokogiri::XML.parse(machinexml)
 
-		mnode = machine.xpath("/machine").first
+		mnode = machine.xpath("/machines/machine").first
 		mnode.add_child(Nokogiri::XML::Node.new('password', machine))
 		mnode.add_child(Nokogiri::XML::Node.new('user', machine))
 		mnode.add_child(Nokogiri::XML::Node.new('ipService', machine))
@@ -149,22 +149,21 @@ class Abiquo::Machine < Abiquo
 				end
 			end
 		end	
-
 		# Let's see if ther is no ds enabled, to enable one of them
-		if machine.xpath("/machine/datastores/datastore/enabled[text()='true']").length == 0
-			machine.xpath('/machine/datastores/datastore/enabled').first.content = 'true'
+		if machine.xpath("/machines/machine/datastores/datastore/enabled[text()='true']").length == 0
+			machine.xpath('/machines/machine/datastores/datastore/enabled').first.content = 'true'
 		end
 		# same with nics
-		if machine.xpath("/machine/networkInterfaces/networkinterface/link[@rel='networkservicetype']").length == 0
-			machine.xpath('/machine/networkInterfaces/networkinterface').first.add_child(nstelement)
+		if machine.xpath("/machines/networkInterfaces/networkinterface/link[@rel='networkservicetype']").length == 0
+			machine.xpath('/machines/machine/networkInterfaces/networkinterface').first.add_child(nstelement)
 		end
 		begin 
 			content = 'application/vnd.abiquo.machine+xml'
 			resour = RestClient::Resource.new("#{rack.url}/machines", :user => @@username, :password => @@password)
-			resp = resour.post "#{machine.xpath('/machine').to_xml}", :content_type => content
+			resp = resour.post "#{machine.xpath('/machines/machine').to_xml}", :content_type => content
 			return Abiquo::Machine.new(resp)
 		rescue => e
-			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
+			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error') unless e.response.nil?
 			if not errormsg.nil? then
 				errormsg.each do |error|
 					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
