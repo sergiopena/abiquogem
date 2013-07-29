@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>assign_ip (Abiquo::Enterprise)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/enterprise.rb, line 164</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">assign_ip</span>(<span class="ruby-identifier">ip</span>)
+                <span class="ruby-keyword kw">begin</span>
+                        <span class="ruby-identifier">db</span> = <span class="ruby-constant">SQLite3</span><span class="ruby-operator">::</span><span class="ruby-constant">Database</span>.<span class="ruby-identifier">new</span> <span class="ruby-value str">'enterprise_demo.db'</span>
+                        <span class="ruby-identifier">stm</span> = <span class="ruby-identifier">db</span>.<span class="ruby-identifier">prepare</span> <span class="ruby-node">&quot;UPDATE enterprise SET ip = '#{ip}' where enterprise_name like '#{self.name}'&quot;</span>
+                        <span class="ruby-identifier">$log</span>.<span class="ruby-identifier">error</span> <span class="ruby-node">&quot;UPDATE enterprise SET ip = '#{ip}' where enterprise_name like '#{self.name}'&quot;</span>
+                        <span class="ruby-identifier">rs</span> = <span class="ruby-identifier">stm</span>.<span class="ruby-identifier">execute</span>
+
+                <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">SQLite3</span><span class="ruby-operator">::</span><span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                        
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Exception occurred updating public IP from enterprise #{self.name}&quot;</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-identifier">e</span>
+
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

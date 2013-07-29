@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (Abiquo::Machine)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/machine.rb, line 26</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">machinexml</span>)
+                <span class="ruby-identifier">m</span> = <span class="ruby-constant">Nokogiri</span><span class="ruby-operator">::</span><span class="ruby-constant">XML</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">machinexml</span>)
+                <span class="ruby-ivar">@xml</span> = <span class="ruby-identifier">machinexml</span>
+                <span class="ruby-ivar">@url</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">xpath</span>(<span class="ruby-value str">'//link[@rel=&quot;edit&quot;]'</span>).<span class="ruby-identifier">attribute</span>(<span class="ruby-value str">'href'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@datastores</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">xpath</span>(<span class="ruby-value str">'//link[@rel=&quot;datastores&quot;]'</span>).<span class="ruby-identifier">attribute</span>(<span class="ruby-value str">'href'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@rack</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">xpath</span>(<span class="ruby-value str">'//link[@rel=&quot;rack&quot;]'</span>).<span class="ruby-identifier">attribute</span>(<span class="ruby-value str">'href'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@virtualmachines</span>  = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">xpath</span>(<span class="ruby-value str">'//link[@rel=&quot;virtualmachines&quot;]'</span>).<span class="ruby-identifier">attribute</span>(<span class="ruby-value str">'href'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@checkstate</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">xpath</span>(<span class="ruby-value str">'//link[@rel=&quot;checkstate&quot;]'</span>).<span class="ruby-identifier">attribute</span>(<span class="ruby-value str">'href'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/id'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/description'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@initiatorIQN</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/initiatorIQN'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@ip</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/ip'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@ipService</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/ipService'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@ipmiPassword</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/ipmiPassword'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/name'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@port</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/port'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@state</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/state'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/type'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@cpu</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/cpu'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@cpuUsed</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/cpuUsed'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@ram</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/ram'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@ramUsed</span> = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/machine/ramUsed'</span>).<span class="ruby-identifier">to_str</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_vapps (Abiquo::Enterprise)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/enterprise.rb, line 107</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_vapps</span>()
+                <span class="ruby-identifier">url</span> = <span class="ruby-ivar">@url</span><span class="ruby-operator">+</span><span class="ruby-identifier">id</span><span class="ruby-operator">+</span><span class="ruby-value str">&quot;/action/virtualappliances&quot;</span>
+                <span class="ruby-identifier">response</span> = <span class="ruby-constant">RestClient</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">url</span>)                
+                <span class="ruby-identifier">data</span> = <span class="ruby-constant">XmlSimple</span>.<span class="ruby-identifier">xml_in</span>(<span class="ruby-identifier">response</span>)
+                <span class="ruby-identifier">$log</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">data</span>
+                <span class="ruby-ivar">@vapps_links</span> = []
+                <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">data</span>[<span class="ruby-value str">&quot;virtualAppliance&quot;</span>]
+                        <span class="ruby-identifier">$log</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Enteprise with no vApps&quot;</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+                <span class="ruby-keyword kw">else</span>
+                        <span class="ruby-identifier">data</span>[<span class="ruby-value str">'virtualAppliance'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">vapp</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">vapp</span>[<span class="ruby-value str">'link'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span>
+                                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">link</span>[<span class="ruby-value str">'rel'</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'edit'</span>
+                                                <span class="ruby-ivar">@vapps_links</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">link</span>
+                                                <span class="ruby-identifier">$log</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Vapp LINK #{link}&quot;</span>
+                                        <span class="ruby-keyword kw">end</span>
+                                <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">end</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@vapps_links</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

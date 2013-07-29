@@ -39,7 +39,7 @@ class Abiquo
 			response = res.get(headers)
 		end
 		
-		if response.code == 200 then
+		if response.code == 201 then
 			return response.body
 		else
 			return nil
@@ -50,16 +50,42 @@ class Abiquo
 		begin 
 			resource = RestClient::Resource.new(resource, :user => @@username, :password => @@password)
 			if headers.nil? then
-				response = resour.post(entity)
+				response = resource.post(data)
 			else
-				response = resour.post(entity, headers)
+				response = resource.post(data, headers)
 			end
+			if response.code == 201 then
+				return response.body
+			else
+				return nil
+			end
+		rescue RestClient::Exception => conflict
+			errormsg = Nokogiri::XML.parse(conflict.response).xpath('//errors/error')
+			if not errormsg.nil? then
+				errormsg.each do |error|
+					raise "Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}"
+				end
+			else
+				raise e.message
+			end
+		end
+	end
+
+	def self.put(resource, data, headers={})
+		begin 
+			resource = RestClient::Resource.new(resource, :user => @@username, :password => @@password)
+			if headers.nil? then
+				response = resource.put(data)
+			else
+				response = resource.put(data, headers)
+			end
+			$log.info "Response code : #{response.code}"
 			if response.code == 200 then
 				return response.body
 			else
 				return nil
 			end
-		rescue RestClient::ConflictException => conflict
+		rescue RestClient::Exception => conflict
 			errormsg = Nokogiri::XML.parse(conflict.response).xpath('//errors/error')
 			if not errormsg.nil? then
 				errormsg.each do |error|
@@ -75,7 +101,7 @@ class Abiquo
 		begin
 			resource = RestClient::Resource.new(resource, :user => @@username, :password => @@password)
 			response = resource.delete()
-		rescue RestClient::ConflictException => conflict
+		rescue RestClient::Exception => conflict
 			errormsg = Nokogiri::XML.parse(conflict.response).xpath('//errors/error')
 			if not errormsg.nil? then
 				errormsg.each do |error|

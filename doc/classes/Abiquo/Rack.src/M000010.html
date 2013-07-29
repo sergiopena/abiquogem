@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (Abiquo::Rack)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/rack.rb, line 20</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">rackxml</span>)
+                <span class="ruby-identifier">r</span> = <span class="ruby-constant">Nokogiri</span><span class="ruby-operator">::</span><span class="ruby-constant">XML</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">rackxml</span>)
+                <span class="ruby-ivar">@xml</span> = <span class="ruby-identifier">rackxml</span>
+                <span class="ruby-ivar">@url</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">xpath</span>(<span class="ruby-value str">'//link[@rel=&quot;edit&quot;]'</span>).<span class="ruby-identifier">attribute</span>(<span class="ruby-value str">'href'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@datacenter</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">xpath</span>(<span class="ruby-value str">'//link[@rel=&quot;datacenter&quot;]'</span>).<span class="ruby-identifier">attribute</span>(<span class="ruby-value str">'href'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@machines</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">xpath</span>(<span class="ruby-value str">'//link[@rel=&quot;machines&quot;]'</span>).<span class="ruby-identifier">attribute</span>(<span class="ruby-value str">'href'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/rack/id'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@haEnabled</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/rack/haEnabled'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-identifier">r</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/rack/longDescription'</span>).<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-ivar">@longDescription</span> = <span class="ruby-value str">&quot;&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@longDescription</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/rack/longDescription'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/rack/name'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@nrsq</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/rack/nrsq'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@shortDescription</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/rack/shortDescription'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@vlanIdMin</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/rack/vlanIdMin'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@vlanIdMax</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/rack/vlanIdMax'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-identifier">r</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/rack/vlansIdAvoided'</span>).<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-ivar">@vlansIdAvoided</span> = <span class="ruby-value str">&quot;&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@vlansIdAvoided</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/rack/vlansIdAvoided'</span>).<span class="ruby-identifier">to_str</span>
+                <span class="ruby-ivar">@vlanPerVdcReserved</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value str">'/rack/vlanPerVdcReserved'</span>).<span class="ruby-identifier">to_str</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

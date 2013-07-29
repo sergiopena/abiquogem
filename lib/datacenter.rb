@@ -170,7 +170,7 @@ class Abiquo::Datacenter < Abiquo
 			#return Abiquo::Datacenter.new(resp)
 			resp = post(url, entity, { 'Content-Type' => 'application/vnd.abiquo.datacenter+xml' })
 			return Abiquo::Datacenter.new(resp)
-		rescue RestClient::ConflictException => e
+		rescue RestClient::Exception => e
 			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
 			if not errormsg.nil? then
 				errormsg.each do |error|
@@ -198,8 +198,9 @@ class Abiquo::Datacenter < Abiquo
 
 		begin 
 			content = 'application/vnd.abiquo.datacenter+xml'
-			resour = RestClient::Resource.new("#{url}", :user => @@username, :password => @@password)
-			resp = resour.put entity, :content_type => content
+			#resour = RestClient::Resource.new("#{url}", :user => @@username, :password => @@password)
+			#resp = resour.put entity, :content_type => content
+			resp = put(entity, { 'Content-Type' => content })
 			return Abiquo::Datacenter.new(resp)
 		rescue => e
 			errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
@@ -224,8 +225,8 @@ class Abiquo::Datacenter < Abiquo
 				
 				begin 
 					content = 'application/vnd.abiquo.remoteservice+xml'
-					resour = RestClient::Resource.new("#{url}", :user => @@username, :password => @@password)
-					resp = resour.put rs.to_xml, :content_type => content
+					#resour = RestClient::Resource.new("#{url}", :user => @@username, :password => @@password)
+					resp = put(rs.to_xml, { 'Content-Type' => content })
 				rescue => e
 					errormsg = Nokogiri::XML.parse(e.response).xpath('//errors/error')
 					if not errormsg.nil? then

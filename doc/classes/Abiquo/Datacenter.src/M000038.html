@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>create (Abiquo::Datacenter)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/datacenter.rb, line 75</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">uuid</span>, <span class="ruby-identifier">location</span>, <span class="ruby-identifier">rs</span>={})
+                <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{@@admin_api}#{@@resource_url}&quot;</span>
+                <span class="ruby-identifier">builder</span> = <span class="ruby-constant">Builder</span><span class="ruby-operator">::</span><span class="ruby-constant">XmlMarkup</span>.<span class="ruby-identifier">new</span>
+
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rs</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> 
+                        <span class="ruby-identifier">ip</span>, <span class="ruby-identifier">port</span> = <span class="ruby-identifier">rs</span>[<span class="ruby-identifier">:all</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">':'</span>)
+                        <span class="ruby-identifier">entity</span> = <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">datacenter</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dc</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uuid</span>(<span class="ruby-identifier">uuid</span>)
+                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">name</span>(<span class="ruby-identifier">name</span>)
+                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">location</span>(<span class="ruby-identifier">location</span>)
+                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteServices</span> {
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">totalSize</span>(<span class="ruby-value">7</span>)
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> {
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;VIRTUAL_FACTORY&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{ip}:#{port}/virtualfactory&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> {
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;VIRTUAL_SYSTEM_MONITOR&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{ip}:#{port}/vsm&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> {
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;APPLIANCE_MANAGER&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{ip}:#{port}/am&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> {
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;NODE_COLLECTOR&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{ip}:#{port}/nodecollector&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> {
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;STORAGE_SYSTEM_MONITOR&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{ip}:#{port}/ssm&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> {
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;BPM_SERVICE&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{ip}:#{port}/bpm-async&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> {
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;DHCP_SERVICE&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{ip}:7911&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                }
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">rs</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">7</span>
+                        <span class="ruby-identifier">entity</span> = <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">datacenter</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dc</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uuid</span>(<span class="ruby-identifier">uuid</span>)
+                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">name</span>(<span class="ruby-identifier">name</span>)
+                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">location</span>(<span class="ruby-identifier">location</span>)
+                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteServices</span> { 
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">totalSize</span>(<span class="ruby-value">7</span>)
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> { 
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;VIRTUAL_FACTORY&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{rs[:vf]}/virtualfactory&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> { 
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;VIRTUAL_FACTORY&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{rs[:vsm]}/vsm&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> { 
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;VIRTUAL_FACTORY&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{rs[:am]}/am&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> { 
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;VIRTUAL_FACTORY&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{rs[:nc]}/nodecollector&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> { 
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;VIRTUAL_FACTORY&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{rs[:ssm]}/ssm&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> { 
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;BPM-ASYNC&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{rs[:bpm]}/bpm-async&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                        <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">remoteService</span> { 
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">type</span>(<span class="ruby-value str">&quot;DHCP&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-node">&quot;http://#{rs[:dhcp]}:7911&quot;</span>)
+                                                <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">status</span>(<span class="ruby-value">0</span>)
+                                        }
+                                }
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+
+                <span class="ruby-keyword kw">begin</span> 
+                        <span class="ruby-identifier">content</span> = <span class="ruby-value str">'application/vnd.abiquo.datacenter+xml'</span>
+                        <span class="ruby-identifier">resour</span> = <span class="ruby-constant">RestClient</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{url}&quot;</span>, <span class="ruby-identifier">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@@username</span>, <span class="ruby-identifier">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@@password</span>)
+                        <span class="ruby-identifier">resp</span> = <span class="ruby-identifier">resour</span>.<span class="ruby-identifier">post</span> <span class="ruby-identifier">entity</span>, <span class="ruby-identifier">:content_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">content</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Abiquo</span><span class="ruby-operator">::</span><span class="ruby-constant">Datacenter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">resp</span>)
+                <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                        <span class="ruby-identifier">errormsg</span> = <span class="ruby-constant">Nokogiri</span><span class="ruby-operator">::</span><span class="ruby-constant">XML</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">response</span>).<span class="ruby-identifier">xpath</span>(<span class="ruby-value str">'//errors/error'</span>)
+                        <span class="ruby-identifier">errormsg</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">error</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}&quot;</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

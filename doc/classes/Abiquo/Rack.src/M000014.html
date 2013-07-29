@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>create_standard (Abiquo::Rack)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/rack.rb, line 84</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">create_standard</span>(<span class="ruby-identifier">dc</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">desc</span>, <span class="ruby-identifier">ha</span>, <span class="ruby-identifier">vlanmin</span>, <span class="ruby-identifier">vlanmax</span>, <span class="ruby-identifier">vlanavoid</span>)
+                <span class="ruby-identifier">content</span> = <span class="ruby-value str">&quot;application/vnd.abiquo.rack+xml;&quot;</span>
+                <span class="ruby-identifier">builder</span> = <span class="ruby-constant">Builder</span><span class="ruby-operator">::</span><span class="ruby-constant">XmlMarkup</span>.<span class="ruby-identifier">new</span>
+                <span class="ruby-identifier">entity</span> = <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">rack</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">rack</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">rack</span>.<span class="ruby-identifier">name</span>(<span class="ruby-identifier">name</span>)
+                        <span class="ruby-identifier">rack</span>.<span class="ruby-identifier">shortDescription</span>(<span class="ruby-identifier">desc</span>)
+                        <span class="ruby-identifier">rack</span>.<span class="ruby-identifier">haEnabled</span>(<span class="ruby-identifier">ha</span>)
+                        <span class="ruby-identifier">rack</span>.<span class="ruby-identifier">nsrq</span>(<span class="ruby-value">10</span>)
+                        <span class="ruby-identifier">rack</span>.<span class="ruby-identifier">vlanIdMax</span>(<span class="ruby-identifier">vlanmax</span>)
+                        <span class="ruby-identifier">rack</span>.<span class="ruby-identifier">vlanIdMin</span>(<span class="ruby-identifier">vlanmin</span>)
+                <span class="ruby-keyword kw">end</span>
+                
+                <span class="ruby-keyword kw">begin</span> 
+                        <span class="ruby-identifier">content</span> = <span class="ruby-value str">'application/vnd.abiquo.rack+xml'</span>
+                        <span class="ruby-identifier">resour</span> = <span class="ruby-constant">RestClient</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">dc</span>.<span class="ruby-identifier">racks</span>, <span class="ruby-identifier">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@@username</span>, <span class="ruby-identifier">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@@password</span>)
+                        <span class="ruby-identifier">resp</span> = <span class="ruby-identifier">resour</span>.<span class="ruby-identifier">post</span> <span class="ruby-identifier">entity</span>, <span class="ruby-identifier">:content_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">content</span>
+                        <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Abiquo</span><span class="ruby-operator">::</span><span class="ruby-constant">Rack</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">resp</span>)
+                <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">RestClient</span><span class="ruby-operator">::</span><span class="ruby-constant">Conflict</span>
+                        <span class="ruby-identifier">errormsg</span> = <span class="ruby-constant">Nokogiri</span><span class="ruby-operator">::</span><span class="ruby-constant">XML</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">response</span>).<span class="ruby-identifier">xpath</span>(<span class="ruby-value str">'//errors/error'</span>)
+                        <span class="ruby-identifier">errormsg</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">error</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Abiquo error code #{error.at('code').to_str} - #{error.at('message').to_str}&quot;</span>
+                        <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

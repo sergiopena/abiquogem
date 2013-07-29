@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: main.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>main.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>main.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Tue Jun 25 07:59:30 +0200 2013</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Author: Sergio Pena
+</p>
+<p>
+Script to create demo enterprise on <a
+href="../classes/Abiquo.html">Abiquo</a> 2.3
+</p>
+<ul>
+<li>Prerequisites
+
+</li>
+<li>A datacenter with kinton id configured on this file must exist on <a
+href="../classes/Abiquo.html">Abiquo</a>
+
+</li>
+<li>A public IP network must be created on <a
+href="../classes/Abiquo.html">Abiquo</a>.
+
+</li>
+<li>Funtions
+
+</li>
+<li>It will create an enterprise with
+
+</li>
+</ul>
+<p>
+&#8212; User &quot;enterprisename_user&quot; &#8212; Enterprise admin
+&quot;enteprisename_admin&quot; &#8212; One defaultVDC &#8212; It will
+purchase one public IP to the default VDC &#8212; Persist enterprise name,
+public IP consumed and creation date into sqlite database
+</p>
+<ul>
+<li>When called to purge old enteprise
+
+</li>
+</ul>
+<p>
+&#8212; It will delete all enterprise orlder than especified parameter
+</p>
+
+    </div>
+
+    <div id="requires-list">
+      <h3 class="section-bar">Required files</h3>
+
+      <div class="name-list">
+      rubygems&nbsp;&nbsp;
+      abiquo.rb&nbsp;&nbsp;
+      logger&nbsp;&nbsp;
+      rest-client&nbsp;&nbsp;
+      xmlsimple&nbsp;&nbsp;
+      pp&nbsp;&nbsp;
+      uri&nbsp;&nbsp;
+      </div>
+    </div>
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">AbiServer</td>
+          <td>=</td>
+          <td class="context-item-value">'http://10.60.13.21/api'</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc"><pre>
+ Configuration options
+</pre>
+
+AbiServer = &#8216;192.168.1.156&#8216;
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">AbiUser</td>
+          <td>=</td>
+          <td class="context-item-value">'admin'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">AbiPass</td>
+          <td>=</td>
+          <td class="context-item-value">'xabiquo'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">IdDatacenter</td>
+          <td>=</td>
+          <td class="context-item-value">1</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

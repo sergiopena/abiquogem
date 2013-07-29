@@ -23,7 +23,7 @@
 # 
 
 require 'rubygems'
-require 'abiquo.rb'
+require './abiquo.rb'
 require 'logger'
 require 'rest-client'
 require 'xmlsimple'
@@ -72,24 +72,24 @@ rescue => e
 end
 
 # Test rename datacenter
-#dct.name = "Prueba changed"
+dct.name = "Adromeda"
 #begin
-#	dct = dct.update
-#	$log.info "Datacenter Id #{dct.datacenterid} renombrado a #{dct.name}"
+	dct = dct.update
+	$log.info "Datacenter Id #{dct.datacenterid} renombrado a #{dct.name}"
 #rescue Exception => e
-#	$log.info "Datacenter #{dct.name} (id : #{dct.datacenterid}) cannot be updated. Check Abiquo logs."
-#	$log.debug "Exception occurred : #{e.message}"
-#	exit 1
+	$log.info "Datacenter #{dct.name} (id : #{dct.datacenterid}) cannot be updated. Check Abiquo logs."
+	$log.debug "Exception occurred : #{e.message}"
+	exit 1
 #end
 
 # Test update remote service
-#begin
-#	dct.update_remote_service('VIRTUAL_SYSTEM_MONITOR', 'http://10.10.10.10:80/vsm')
-#	$log.info "Datacenter Id #{dct.datacenterid} changed VSM uri"
-#rescue Exception => e
-#	$log.info "Datacenter #{dct.name} (id : #{dct.datacenterid}) cannot be updated. Check Abiquo logs."
-#	$log.debug "Exception occurred : #{e.message}"
-#end
+begin
+	dct.update_remote_service('VIRTUAL_SYSTEM_MONITOR', 'http://10.10.10.10:80/vsm')
+	$log.info "Datacenter Id #{dct.datacenterid} changed VSM uri"
+rescue Exception => e
+	$log.info "Datacenter #{dct.name} (id : #{dct.datacenterid}) cannot be updated. Check Abiquo logs."
+	$log.debug "Exception occurred : #{e.message}"
+end
 
 # Test create Rack
 #begin
